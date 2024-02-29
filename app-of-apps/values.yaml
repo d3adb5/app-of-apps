@@ -1,0 +1,5 @@
+repository:
+  url: https://github.com/d3adb5/argo-applications
+
+argocd:
+  namespace: argo-cd

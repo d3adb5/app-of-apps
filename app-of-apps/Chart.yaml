@@ -1,0 +1,5 @@
+apiVersion: v2
+name: app-of-apps
+version: 0.1.0
+type: application
+description: Chart implementing the Argo CD app of apps pattern
