@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 6.4.1
+    chart: argo-cd
+
+    helm:
+      valuesObject:
+        global:
+          domain: argo.d3adb5.net
+
+        configs:
+          params:
+            server.insecure: true
+
+        controller:
+          replicas: 1
+
+        server:
+          replicas: 2
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+            tls: true
+
+        repoServer:
+          replicas: 2
+
+        applicationSet:
+          replicas: 2
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.argocd.namespace }}
