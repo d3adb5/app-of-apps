@@ -3,3 +3,6 @@ repository:
 
 argocd:
   namespace: argo-cd
+
+metallb:
+  namespace: metallb
