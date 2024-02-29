@@ -9,3 +9,6 @@ metallb:
 
 ingress:
   namespace: ingress
+
+certManager:
+  namespace: cert-manager
