@@ -12,3 +12,6 @@ ingress:
 
 certManager:
   namespace: cert-manager
+
+longhorn:
+  namespace: longhorn
