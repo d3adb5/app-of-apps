@@ -13,6 +13,9 @@ spec:
       valuesObject:
         preUpgradeChecker:
           jobEnabled: false
+        persistence:
+          defaultClassReplicaCount: 1
+          migratable: true
 
   destination:
     server: https://kubernetes.default.svc
