@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: longhorn
 spec:
-  project: default
+  project: storage
   source:
     repoURL: https://charts.longhorn.io
     targetRevision: 1.6.0
