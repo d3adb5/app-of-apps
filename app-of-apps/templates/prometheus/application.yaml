@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-stack
+spec:
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 56.20.0
+    chart: kube-prometheus-stack
+
+    helm:
+      valuesObject:
+        grafana:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt"
+            hosts:
+              - grafana.d3adb5.net
+            tls:
+              - hosts:
+                  - grafana.d3adb5.net
+                secretName: grafana-tls
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.prometheus.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
