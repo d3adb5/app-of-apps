@@ -22,7 +22,7 @@ spec:
             cpu: 500m
             memory: 1.5Gi
           limits:
-            cpu: 1
+            cpu: 2
             memory: 1.5Gi
         minecraftServer:
           eula: true
