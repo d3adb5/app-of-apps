@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft
+spec:
+  project: minecraft
+  source:
+    repoURL: https://itzg.github.io/minecraft-server-charts
+    targetRevision: 4.15.0
+    chart: minecraft
+
+    helm:
+      valuesObject:
+        workloadAsStatefulSet: true
+        strategyType: RollingUpdate
+        persistence:
+          dataDir:
+            enabled: true
+            Size: 5Gi
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1.5Gi
+          limits:
+            cpu: 1
+            memory: 1.5Gi
+        minecraftServer:
+          eula: true
+          type: PAPER
+          whitelist: d3adb5,pijung
+          ops: d3adb5,pijung
+          maxPlayers: 10
+          allowNether: true
+          announcePlayerAchievements: true
+          spawnProtection: 0
+          viewDistance: 12
+          motd: "But do you l'eggu?"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.minecraft.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

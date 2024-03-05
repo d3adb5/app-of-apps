@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: minecraft
+  namespace: {{ .Values.argocd.namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Minecraft related services
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: {{ .Values.minecraft.namespace }}
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
