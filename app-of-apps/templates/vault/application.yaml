@@ -32,6 +32,17 @@ spec:
           dataStorage:
             enabled: true
             size: 3Gi
+          affinity: |
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: {{ "{{ template \"vault.name\" . }}" }}
+                        app.kubernetes.io/instance: {{ quote "{{ .Release.Name }}" }}
+                        component: server
+                    topologyKey: kubernetes.io/hostname
 
   destination:
     server: https://kubernetes.default.svc
