@@ -12,6 +12,9 @@ spec:
     helm:
       valuesObject:
         grafana:
+          persistence:
+            enabled: true
+            size: 10Gi
           ingress:
             enabled: true
             ingressClassName: nginx
