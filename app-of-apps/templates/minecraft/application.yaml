@@ -35,6 +35,7 @@ spec:
           spawnProtection: 0
           viewDistance: 12
           motd: "But do you l'eggu?"
+          serviceType: LoadBalancer
 
   destination:
     server: https://kubernetes.default.svc
