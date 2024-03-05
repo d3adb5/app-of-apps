@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+spec:
+  project: vault
+  source:
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.27.0
+    chart: vault
+
+    helm:
+      valuesObject:
+        global:
+          enabled: false
+        server:
+          enabled: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
+          standalone:
+            enabled: false
+          ha:
+            enabled: true
+            replicas: 3
+            raft:
+              enabled: true
+          dataStorage:
+            enabled: true
+            size: 3Gi
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.vault.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

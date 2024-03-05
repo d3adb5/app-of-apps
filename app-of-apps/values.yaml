@@ -22,3 +22,6 @@ prometheus:
 
 minecraft:
   namespace: minecraft
+
+vault:
+  namespace: vault
