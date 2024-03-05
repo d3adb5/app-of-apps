@@ -9,6 +9,13 @@ spec:
     targetRevision: 4.10.0
     chart: ingress-nginx
 
+    helm:
+      valuesObject:
+        controller:
+          service:
+            annotations:
+              metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
+
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.ingress.namespace }}

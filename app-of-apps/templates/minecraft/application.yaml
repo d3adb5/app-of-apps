@@ -36,6 +36,8 @@ spec:
           viewDistance: 12
           motd: "But do you l'eggu?"
           serviceType: LoadBalancer
+        serviceAnnotations:
+          metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
 
   destination:
     server: https://kubernetes.default.svc
