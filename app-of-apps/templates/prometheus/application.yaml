@@ -11,6 +11,16 @@ spec:
 
     helm:
       valuesObject:
+        prometheus:
+          prometheusSpec:
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes:
+                    - ReadWriteOnce
+                  resources:
+                    requests:
+                      storage: 10Gi
         grafana:
           persistence:
             enabled: true
