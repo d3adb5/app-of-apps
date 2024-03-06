@@ -16,6 +16,8 @@ certManager:
 
 longhorn:
   namespace: longhorn
+  defaultSettings:
+    taintToleration: "purpose=storage:NoSchedule"
   ingress:
     host: longhorn.d3adb5.net
     ingressClassName: nginx

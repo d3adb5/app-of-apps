@@ -28,7 +28,7 @@ spec:
             tls: {{ .Values.longhorn.ingress.tls }}
 
           defaultSettings:
-            taintToleration: "purpose=storage:NoSchedule"
+            {{- toYaml .Values.longhorn.defaultSettings | nindent 12 }}
 
           longhornManager:
             tolerations:
