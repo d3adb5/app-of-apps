@@ -23,6 +23,8 @@ spec:
             enabled: true
             ingressClassName: {{ .Values.longhorn.ingress.ingressClassName }}
             host: {{ .Values.longhorn.ingress.host }}
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
             tls: true
 
   destination:
