@@ -37,3 +37,10 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+  ignoreDifferences:
+    - kind: Secret
+      name: longhorn-ui-secret
+      jsonPointers:
+        - /data/auth
+        - /data/generatedPassword
