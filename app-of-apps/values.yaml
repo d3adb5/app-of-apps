@@ -16,6 +16,9 @@ certManager:
 
 longhorn:
   namespace: longhorn
+  ingress:
+    host: longhorn.d3adb5.net
+    ingressClassName: nginx
 
 prometheus:
   namespace: prometheus

@@ -7,17 +7,23 @@ metadata:
 spec:
   project: storage
   source:
-    repoURL: https://charts.longhorn.io
-    targetRevision: 1.6.0
-    chart: longhorn
+    repoURL: {{ .Values.repository.url }}
+    targetRevision: HEAD
+    path: longhorn
 
     helm:
       valuesObject:
-        preUpgradeChecker:
-          jobEnabled: false
-        persistence:
-          defaultClassReplicaCount: 1
-          migratable: true
+        longhorn:
+          preUpgradeChecker:
+            jobEnabled: false
+          persistence:
+            defaultClassReplicaCount: 1
+            migratable: true
+          ingress:
+            enabled: true
+            ingressClassName: {{ .Values.longhorn.ingress.ingressClassName }}
+            host: {{ .Values.longhorn.ingress.host }}
+            tls: true
 
   destination:
     server: https://kubernetes.default.svc
