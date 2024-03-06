@@ -27,6 +27,22 @@ spec:
               cert-manager.io/cluster-issuer: letsencrypt
             tls: true
 
+          defaultSettings:
+            taintToleration: "purpose=storage:NoSchedule"
+
+          longhornManager:
+            tolerations:
+              - key: purpose
+                operator: Equal
+                value: storage
+                effect: NoSchedule
+          longhornDriver:
+            tolerations:
+              - key: purpose
+                operator: Equal
+                value: storage
+                effect: NoSchedule
+
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.longhorn.namespace }}
