@@ -32,16 +32,10 @@ spec:
 
           longhornManager:
             tolerations:
-              - key: purpose
-                operator: Equal
-                value: storage
-                effect: NoSchedule
+              {{- toYaml .Values.longhorn.tolerations | nindent 14 }}
           longhornDriver:
             tolerations:
-              - key: purpose
-                operator: Equal
-                value: storage
-                effect: NoSchedule
+              {{- toYaml .Values.longhorn.tolerations | nindent 14 }}
 
   destination:
     server: https://kubernetes.default.svc

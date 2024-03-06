@@ -19,6 +19,11 @@ longhorn:
   ingress:
     host: longhorn.d3adb5.net
     ingressClassName: nginx
+  tolerations:
+    - key: purpose
+      operator: Equal
+      value: storage
+      effect: NoSchedule
 
 prometheus:
   namespace: prometheus
