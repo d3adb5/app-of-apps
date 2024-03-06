@@ -24,7 +24,7 @@ spec:
             ingressClassName: {{ .Values.longhorn.ingress.ingressClassName }}
             host: {{ .Values.longhorn.ingress.host }}
             annotations:
-              cert-manager.io/cluster-issuer: letsencrypt
+              {{- toYaml .Values.longhorn.ingress.annotations | nindent 14 }}
             tls: true
 
           defaultSettings:
