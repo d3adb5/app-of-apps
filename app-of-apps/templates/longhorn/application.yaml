@@ -25,7 +25,7 @@ spec:
             host: {{ .Values.longhorn.ingress.host }}
             annotations:
               {{- toYaml .Values.longhorn.ingress.annotations | nindent 14 }}
-            tls: true
+            tls: {{ .Values.longhorn.ingress.tls }}
 
           defaultSettings:
             taintToleration: "purpose=storage:NoSchedule"

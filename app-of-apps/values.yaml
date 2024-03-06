@@ -19,6 +19,7 @@ longhorn:
   ingress:
     host: longhorn.d3adb5.net
     ingressClassName: nginx
+    tls: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
   tolerations:
