@@ -8,3 +8,15 @@ longhorn:
       nginx.ingress.kubernetes.io/auth-secret: longhorn-ui-secret
       nginx.ingress.kubernetes.io/auth-realm: "Authentication Required "
       nginx.ingress.kubernetes.io/proxy-body-size: 10000m
+
+extraStorageClasses:
+  - name: longhorn-nvme
+    dataLocality: best-effort
+    nodeSelector: nvme
+  - name: longhorn-large
+    nodeSelector: large
+  - name: longhorn-medium
+    nodeSelector: medium
+  - name: longhorn-small
+    allowVolumeExpansion: false
+    nodeSelector: small

@@ -1,0 +1,19 @@
+{{- range .Values.extraStorageClasses }}
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ .name }}
+provisioner: driver.longhorn.io
+allowVolumeExpansion: {{ .allowVolumeExpansion | default "true" }}
+reclaimPolicy: {{ .reclaimPolicy | default "Delete" }}
+volumeBindingMode: {{ .volumeBindingMode | default "Immediate" }}
+parameters:
+  numberOfReplicas: {{ .numberOfReplicas | default 1 | quote }}
+  staleReplicaTimeout: {{ .staleReplicaTimeout | default 2880 | quote }}
+  dataLocality: {{ .dataLocality | default "disabled" | quote }}
+  fromBackup: {{ .fromBackup | default "" | quote }}
+  fsType: {{ .fsType | default "ext4" | quote }}
+  migratable: {{ .migratable | default "true" | quote }}
+  nodeSelector: {{ quote .nodeSelector }}
+{{- end }}
