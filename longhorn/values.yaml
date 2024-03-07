@@ -14,6 +14,7 @@ extraStorageClasses:
     dataLocality: best-effort
     nodeSelector: nvme
   - name: longhorn-large
+    migratable: "false"
     nodeSelector: large
   - name: longhorn-medium
     nodeSelector: medium
