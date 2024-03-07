@@ -11,6 +11,12 @@ spec:
     targetRevision: 0.14.3
     chart: metallb
 
+    helm:
+      valuesObject:
+        speaker:
+          tolerations:
+            {{- toYaml .Values.metallb.speaker.tolerations | nindent 12 }}
+
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.metallb.namespace }}
