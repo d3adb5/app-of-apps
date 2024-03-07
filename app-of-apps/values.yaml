@@ -71,7 +71,7 @@ plex:
       subPath: movies
   extraEnv:
     # If redeploying, generate a new claim token through https://www.plex.tv/claim/
-    PLEX_CLAIM: "claim-LEHSGjiYcevRpundQ4Gj"
+    PLEX_CLAIM: "claim-gn9iLXVVLsg11o8Zzuac"
     HOSTNAME: Plexgu
     PLEX_UID: 1000
     PLEX_GID: 1000
