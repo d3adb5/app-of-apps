@@ -28,6 +28,7 @@ spec:
             enabled: true
           dataStorage:
             enabled: true
+            storageClass: longhorn-nvme
             size: 3Gi
           affinity: |
             podAntiAffinity:
