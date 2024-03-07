@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plex-media-server
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
+    targetRevision: 0.2.1
+    chart: plex-media-server
+
+    helm:
+      valuesObject:
+        image:
+          {{- toYaml .Values.plex.image | nindent 10 }}
+        ingress:
+          {{- toYaml .Values.plex.ingress | nindent 10 }}
+        extraEnv:
+          {{- toYaml .Values.plex.extraEnv | nindent 10 }}
+        pms:
+          storageClassName: {{ .Values.plex.config.storageClassName }}
+          configStorage: {{ .Values.plex.config.storageSize }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.plex.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
