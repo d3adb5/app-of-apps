@@ -55,6 +55,9 @@ plex:
   config:
     storageClassName: longhorn-nvme
     storageSize: 2Gi
+  service:
+    type: NodePort
+    nodePort: 32400
   ingress:
     enabled: true
     ingressClassName: nginx

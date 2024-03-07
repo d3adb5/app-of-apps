@@ -23,6 +23,8 @@ spec:
           {{- toYaml .Values.plex.extraVolumes | nindent 10 }}
         extraVolumeMounts:
           {{- toYaml .Values.plex.extraVolumeMounts | nindent 10 }}
+        service:
+          {{- toYaml .Values.plex.service | nindent 10 }}
         pms:
           storageClassName: {{ .Values.plex.config.storageClassName }}
           configStorage: {{ .Values.plex.config.storageSize }}
