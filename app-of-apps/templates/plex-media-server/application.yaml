@@ -19,6 +19,10 @@ spec:
           {{- toYaml .Values.plex.ingress | nindent 10 }}
         extraEnv:
           {{- toYaml .Values.plex.extraEnv | nindent 10 }}
+        extraVolumes:
+          {{- toYaml .Values.plex.extraVolumes | nindent 10 }}
+        extraVolumeMounts:
+          {{- toYaml .Values.plex.extraVolumeMounts | nindent 10 }}
         pms:
           storageClassName: {{ .Values.plex.config.storageClassName }}
           configStorage: {{ .Values.plex.config.storageSize }}

@@ -61,6 +61,17 @@ plex:
     url: plex.d3adb5.net
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+  extraVolumes:
+    - name: media-library
+      persistentVolumeClaim:
+        claimName: media-library
+  extraVolumeMounts:
+    - name: media-library
+      mountPath: /media/tv
+      subPath: tv
+    - name: media-library
+      mountPath: /media/movies
+      subPath: movies
   extraEnv:
     # If redeploying, generate a new claim token through https://www.plex.tv/claim/
     PLEX_CLAIM: "claim-LEHSGjiYcevRpundQ4Gj"
