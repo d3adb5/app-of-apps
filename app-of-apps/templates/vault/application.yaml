@@ -25,12 +25,7 @@ spec:
               cpu: 100m
               memory: 256Mi
           standalone:
-            enabled: false
-          ha:
             enabled: true
-            replicas: 3
-            raft:
-              enabled: true
           dataStorage:
             enabled: true
             size: 3Gi
