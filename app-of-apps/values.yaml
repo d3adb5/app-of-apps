@@ -48,9 +48,6 @@ vault:
 plex:
   namespace: media
   image:
-    registry: lscr.io
-    repository: linuxserver/plex
-    tag: latest
     pullPolicy: Always
   config:
     storageClassName: longhorn-nvme
@@ -76,7 +73,6 @@ plex:
     # If redeploying, generate a new claim token through https://www.plex.tv/claim/
     PLEX_CLAIM: "claim-LEHSGjiYcevRpundQ4Gj"
     HOSTNAME: Plexgu
-    PUID: 1000
-    PGID: 1000
-    VERSION: docker
+    PLEX_UID: 1000
+    PLEX_GID: 1000
     TZ: America/Vancouver
