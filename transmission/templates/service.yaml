@@ -13,6 +13,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      nodePort: {{ .Values.service.nodePort }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}
 ---
@@ -31,6 +32,7 @@ spec:
       targetPort: peer-tcp
       protocol: TCP
       name: peer-tcp
+      nodePort: {{ .Values.peerService.nodePort }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}
 ---
@@ -49,5 +51,6 @@ spec:
       targetPort: peer-udp
       protocol: UDP
       name: peer-udp
+      nodePort: {{ .Values.peerService.nodePort }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}

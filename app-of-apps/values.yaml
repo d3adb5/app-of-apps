@@ -100,9 +100,8 @@ transmission:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
     peerService:
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/allow-shared-ip: *metallb-sharing-key
+      type: NodePort
+      nodePort: 32555
     extraEnv:
       - name: TZ
         value: America/Vancouver
