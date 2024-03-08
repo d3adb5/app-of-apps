@@ -87,6 +87,9 @@ plex:
 transmission:
   namespace: media
   valuesObject:
+    persistence:
+      config:
+        storageClass: longhorn-nvme
     ingress:
       enabled: true
       host: transmission.d3adb5.net
