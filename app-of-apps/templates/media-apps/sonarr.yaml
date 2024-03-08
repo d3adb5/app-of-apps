@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarr
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: {{ .Values.repository.url }}
+    targetRevision: HEAD
+    path: x-arr
+
+    helm:
+      valuesObject:
+        {{- toYaml .Values.sonarr.valuesObject | nindent 8 }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.sonarr.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
