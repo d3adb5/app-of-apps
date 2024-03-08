@@ -161,6 +161,9 @@ sonarr:
     extraVolumeMounts:
       - name: media-library
         mountPath: /media
+      - name: media-library
+        mountPath: /downloads
+        subPath: torrents
 
 radarr:
   namespace: media
@@ -204,6 +207,9 @@ radarr:
     extraVolumeMounts:
       - name: media-library
         mountPath: /media
+      - name: media-library
+        mountPath: /downloads
+        subPath: torrents
 
 prowlarr:
   namespace: media
