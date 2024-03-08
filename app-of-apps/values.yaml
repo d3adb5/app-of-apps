@@ -147,3 +147,32 @@ sonarr:
         value: "1000"
       - name: PGID
         value: "1000"
+
+radarr:
+  namespace: media
+  valuesObject:
+    image:
+      repository: lscr.io/linuxserver/radarr
+      tag: latest
+      pullPolicy: Always
+    persistence:
+      config:
+        storageClass: longhorn-nvme
+    service:
+      port: 7878
+    ingress:
+      enabled: true
+      host: radarr.d3adb5.net
+      className: nginx
+      tls:
+        enabled: true
+        secretName: radarr-tls
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+    extraEnv:
+      - name: TZ
+        value: America/Vancouver
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
