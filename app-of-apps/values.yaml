@@ -98,12 +98,6 @@ transmission:
         secretName: transmission-tls
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
-    securityContext:
-      capabilities:
-        drop:
-          - ALL
-      runAsNonRoot: true
-      runAsUser: 1000
     peerService:
       type: LoadBalancer
       annotations:
@@ -111,6 +105,10 @@ transmission:
     extraEnv:
       - name: TZ
         value: America/Vancouver
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
     extraVolumes:
       - name: media-library
         persistentVolumeClaim:
