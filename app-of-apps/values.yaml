@@ -102,6 +102,7 @@ transmission:
     peerService:
       type: NodePort
       nodePort: 32555
+      port: 32555
     extraEnv:
       - name: TZ
         value: America/Vancouver

@@ -20,7 +20,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  {{- if eq .Values.peerService.type "NodePort" }}
+  name: {{ include "transmission.fullname" . }}-peer
+  {{- else }}
   name: {{ include "transmission.fullname" . }}-peer-tcp
+  {{- end }}
   labels:
     {{- include "transmission.labels" . | nindent 4 }}
   annotations:
@@ -33,8 +37,16 @@ spec:
       protocol: TCP
       name: peer-tcp
       nodePort: {{ .Values.peerService.nodePort }}
+    {{- if eq .Values.peerService.type "NodePort" }}
+    - port: {{ .Values.peerService.port }}
+      targetPort: peer-udp
+      protocol: UDP
+      name: peer-udp
+      nodePort: {{ .Values.peerService.nodePort }}
+    {{- end }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}
+{{- if ne .Values.peerService.type "NodePort" }}
 ---
 apiVersion: v1
 kind: Service
@@ -54,3 +66,4 @@ spec:
       nodePort: {{ .Values.peerService.nodePort }}
   selector:
     {{- include "transmission.selectorLabels" . | nindent 4 }}
+{{- end }}
