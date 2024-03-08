@@ -154,6 +154,13 @@ sonarr:
         value: "1000"
       - name: PGID
         value: "1000"
+    extraVolumes:
+      - name: media-library
+        persistentVolumeClaim:
+          claimName: media-library
+    extraVolumeMounts:
+      - name: media-library
+        mountPath: /media
 
 radarr:
   namespace: media
@@ -190,6 +197,13 @@ radarr:
         value: "1000"
       - name: PGID
         value: "1000"
+    extraVolumes:
+      - name: media-library
+        persistentVolumeClaim:
+          claimName: media-library
+    extraVolumeMounts:
+      - name: media-library
+        mountPath: /media
 
 prowlarr:
   namespace: media
