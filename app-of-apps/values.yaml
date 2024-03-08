@@ -92,6 +92,7 @@ transmission:
         storageClass: longhorn-nvme
     ingress:
       enabled: true
+      className: nginx
       host: transmission.d3adb5.net
       tls:
         enabled: true
