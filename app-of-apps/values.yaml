@@ -176,3 +176,32 @@ radarr:
         value: "1000"
       - name: PGID
         value: "1000"
+
+prowlarr:
+  namespace: media
+  valuesObject:
+    image:
+      repository: lscr.io/linuxserver/prowlarr
+      tag: latest
+      pullPolicy: Always
+    persistence:
+      config:
+        storageClass: longhorn-nvme
+    service:
+      port: 9696
+    ingress:
+      enabled: true
+      host: prowlarr.d3adb5.net
+      className: nginx
+      tls:
+        enabled: true
+        secretName: prowlarr-tls
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+    extraEnv:
+      - name: TZ
+        value: America/Vancouver
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
