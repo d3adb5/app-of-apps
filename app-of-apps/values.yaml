@@ -129,6 +129,13 @@ sonarr:
     persistence:
       config:
         storageClass: longhorn-nvme
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
     service:
       port: 8989
     ingress:
@@ -158,6 +165,13 @@ radarr:
     persistence:
       config:
         storageClass: longhorn-nvme
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
     service:
       port: 7878
     ingress:
