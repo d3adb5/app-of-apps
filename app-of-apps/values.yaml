@@ -6,7 +6,7 @@ argocd:
 
 metallb:
   namespace: metallb
-  ipSharingKey: metallb-single-ip
+  ipSharingKey: &metallb-sharing-key metallb-single-ip
   speaker:
     tolerations:
       - key: purpose
@@ -83,3 +83,37 @@ plex:
     PGID: 1000
     VERSION: docker
     TZ: America/Vancouver
+
+transmission:
+  namespace: media
+  valuesObject:
+    ingress:
+      enabled: true
+      host: transmission.d3adb5.net
+      tls:
+        enabled: true
+        secretName: transmission-tls
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+    peerService:
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/allow-shared-ip: *metallb-sharing-key
+    extraEnv:
+      - name: TZ
+        value: America/Vancouver
+    extraVolumes:
+      - name: media-library
+        persistentVolumeClaim:
+          claimName: media-library
+    extraVolumeMounts:
+      - name: media-library
+        mountPath: /downloads
+        subPath: torrents
