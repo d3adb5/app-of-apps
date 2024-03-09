@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mc-jngs
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: minecraft
+  source:
+    repoURL: https://itzg.github.io/minecraft-server-charts
+    targetRevision: 4.15.0
+    chart: minecraft
+
+    helm:
+      valuesObject:
+        workloadAsStatefulSet: true
+        strategyType: RollingUpdate
+        persistence:
+          storageClass: longhorn-nvme
+          dataDir:
+            enabled: true
+            Size: 10Gi
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 2500m
+            memory: 2Gi
+        minecraftServer:
+          eula: true
+          type: PAPER
+          whitelist: d3adb5,pijung
+          ops: d3adb5,pijung
+          maxPlayers: 10
+          allowNether: true
+          announcePlayerAchievements: true
+          spawnProtection: 0
+          viewDistance: 12
+          motd: "You are what you do, not what you say you'll do."
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.minecraft.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -24,6 +24,9 @@ spec:
             - externalName: mc-legg.d3adb5.net
               host: mc-legg-minecraft
               port: 25565
+            - externalName: mc-jngs.d3adb5.net
+              host: mc-jngs-minecraft
+              port: 25565
 
   destination:
     server: https://kubernetes.default.svc
