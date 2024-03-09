@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mc-router
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: minecraft
+  source:
+    repoURL: https://itzg.github.io/minecraft-server-charts
+    targetRevision: 1.1.0
+    chart: mc-router
+
+    helm:
+      valuesObject:
+        services:
+          minecraft:
+            type: LoadBalancer
+            port: 25565
+            annotations:
+              metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
+        minecraftRouter:
+          mappings:
+            - externalName: mc-legg.d3adb5.net
+              host: mc-legg-minecraft
+              port: 25565
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.minecraft.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: minecraft
+  name: mc-legg
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -16,16 +16,17 @@ spec:
         workloadAsStatefulSet: true
         strategyType: RollingUpdate
         persistence:
+          storageClass: longhorn-nvme
           dataDir:
             enabled: true
-            Size: 5Gi
+            Size: 10Gi
         resources:
           requests:
             cpu: 500m
-            memory: 1.5Gi
+            memory: 2Gi
           limits:
-            cpu: 2
-            memory: 1.5Gi
+            cpu: 2500m
+            memory: 2Gi
         minecraftServer:
           eula: true
           type: PAPER
@@ -37,9 +38,6 @@ spec:
           spawnProtection: 0
           viewDistance: 12
           motd: "But do you l'eggu?"
-          serviceType: LoadBalancer
-        serviceAnnotations:
-          metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
 
   destination:
     server: https://kubernetes.default.svc
