@@ -38,6 +38,7 @@ spec:
           spawnProtection: 0
           viewDistance: 12
           motd: "But do you l'eggu?"
+          icon: "http://0x0.st/Hhpf.png"
 
   destination:
     server: https://kubernetes.default.svc
