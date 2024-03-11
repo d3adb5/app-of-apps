@@ -39,6 +39,18 @@ spec:
           viewDistance: 12
           motd: "But do you l'eggu?"
           icon: "http://0x0.st/Hhpf.png"
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - minecraft
+                  topologyKey: kubernetes.io/hostname
 
   destination:
     server: https://kubernetes.default.svc
