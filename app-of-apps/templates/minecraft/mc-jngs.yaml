@@ -38,6 +38,7 @@ spec:
           spawnProtection: 0
           viewDistance: 12
           motd: "You are what you do, not what you say you'll do."
+          icon: "http://0x0.st/Hhpt.png"
 
   destination:
     server: https://kubernetes.default.svc
