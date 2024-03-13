@@ -9,7 +9,7 @@ metadata:
     {{- include "x-arr.labels" . | nindent 4 }}
 spec:
   serviceName: {{ include "x-arr.fullname" . }}
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "x-arr.selectorLabels" . | nindent 6 }}
