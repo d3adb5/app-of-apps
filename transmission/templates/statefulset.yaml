@@ -6,7 +6,7 @@ metadata:
     {{- include "transmission.labels" . | nindent 4 }}
 spec:
   serviceName: {{ include "transmission.fullname" . }}
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       {{- include "transmission.selectorLabels" . | nindent 6 }}

@@ -1,3 +1,5 @@
+replicaCount: 1
+
 image:
   repository: lscr.io/linuxserver/transmission
   pullPolicy: Always
