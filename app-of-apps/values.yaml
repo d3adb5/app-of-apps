@@ -90,6 +90,7 @@ transmission:
 sonarr:
   namespace: media
   valuesObject:
+    replicaCount: 0
     image:
       repository: lscr.io/linuxserver/sonarr
       tag: latest
@@ -136,6 +137,7 @@ sonarr:
 radarr:
   namespace: media
   valuesObject:
+    replicaCount: 0
     image:
       repository: lscr.io/linuxserver/radarr
       tag: latest
@@ -182,6 +184,7 @@ radarr:
 prowlarr:
   namespace: media
   valuesObject:
+    replicaCount: 0
     image:
       repository: lscr.io/linuxserver/prowlarr
       tag: latest

@@ -13,6 +13,7 @@ spec:
 
     helm:
       valuesObject:
+        replicaCount: 0
         tolerations:
           - key: purpose
             operator: Equal
