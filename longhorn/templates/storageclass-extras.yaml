@@ -15,5 +15,10 @@ parameters:
   fromBackup: {{ .fromBackup | default "" | quote }}
   fsType: {{ .fsType | default "ext4" | quote }}
   migratable: {{ .migratable | default "false" | quote }}
-  nodeSelector: {{ quote .nodeSelector }}
+  {{- with .nodeSelector }}
+  nodeSelector: {{ quote . }}
+  {{- end }}
+  {{- with .diskSelector }}
+  diskSelector: {{ quote . }}
+  {{- end }}
 {{- end }}
