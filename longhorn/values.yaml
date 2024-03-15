@@ -12,12 +12,10 @@ longhorn:
 extraStorageClasses:
   - name: longhorn-nvme
     dataLocality: best-effort
-    nodeSelector: nvme
+    diskSelector: nvme
+  - name: longhorn-hdd
+    dataLocality: best-effort
+    diskSelector: hdd
   - name: longhorn-large
-    migratable: "false"
-    nodeSelector: large
-  - name: longhorn-medium
-    nodeSelector: medium
-  - name: longhorn-small
-    allowVolumeExpansion: false
-    nodeSelector: small
+    dataLocality: best-effort
+    diskSelector: large
