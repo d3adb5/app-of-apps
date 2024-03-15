@@ -14,20 +14,6 @@ spec:
     helm:
       valuesObject:
         replicaCount: 0
-        tolerations:
-          - key: purpose
-            operator: Equal
-            value: storage
-            effect: NoSchedule
-        affinity:
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: purpose
-                      operator: In
-                      values:
-                        - storage
         persistence:
           config:
             storageClass: longhorn-nvme
