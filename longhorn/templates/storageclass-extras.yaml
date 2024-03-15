@@ -14,6 +14,6 @@ parameters:
   dataLocality: {{ .dataLocality | default "disabled" | quote }}
   fromBackup: {{ .fromBackup | default "" | quote }}
   fsType: {{ .fsType | default "ext4" | quote }}
-  migratable: {{ .migratable | default "true" | quote }}
+  migratable: {{ .migratable | default "false" | quote }}
   nodeSelector: {{ quote .nodeSelector }}
 {{- end }}
