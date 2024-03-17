@@ -7,12 +7,6 @@ argocd:
 metallb:
   namespace: metallb
   ipSharingKey: &metallb-sharing-key metallb-single-ip
-  speaker:
-    tolerations:
-      - key: purpose
-        operator: Equal
-        value: storage
-        effect: NoSchedule
 
 ingress:
   namespace: ingress
