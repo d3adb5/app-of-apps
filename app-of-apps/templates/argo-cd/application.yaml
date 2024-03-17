@@ -23,8 +23,13 @@ spec:
         controller:
           replicas: 1
 
+        redis-ha:
+          enabled: true
+
         server:
-          replicas: 2
+          autoscaling:
+            enabled: true
+            minReplicas: 2
           ingress:
             enabled: true
             ingressClassName: nginx
@@ -35,7 +40,9 @@ spec:
             tls: true
 
         repoServer:
-          replicas: 2
+          autoscaling:
+            enabled: true
+            minReplicas: 2
 
         applicationSet:
           replicas: 2
