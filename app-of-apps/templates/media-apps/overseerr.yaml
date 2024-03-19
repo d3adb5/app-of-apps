@@ -23,11 +23,11 @@ spec:
             storageClass: longhorn-nvme
         resources:
           requests:
-            cpu: 100m
-            memory: 512Mi
+            cpu: 50m
+            memory: 256Mi
           limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 200m
+            memory: 384Mi
         service:
           port: 5055
         ingress:
