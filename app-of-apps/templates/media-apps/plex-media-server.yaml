@@ -49,6 +49,13 @@ spec:
         pms:
           storageClassName: longhorn-nvme
           configStorage: 2Gi
+          resources:
+            requests:
+              cpu: 300m
+              memory: 2Gi
+            limits:
+              cpu: 300m
+              memory: 2Gi
 
   destination:
     server: https://kubernetes.default.svc
