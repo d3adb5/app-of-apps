@@ -13,7 +13,39 @@ spec:
 
     helm:
       valuesObject:
-        {{- toYaml .Values.overseerr.valuesObject | nindent 8 }}
+        replicaCount: 1
+        image:
+          repository: lscr.io/linuxserver/overseerr
+          tag: latest
+          pullPolicy: Always
+        persistence:
+          config:
+            storageClass: longhorn-nvme
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        service:
+          port: 5055
+        ingress:
+          enabled: true
+          host: requests.d3adb5.net
+          className: nginx
+          tls:
+            enabled: true
+            secretName: overseerr-tls
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+        extraEnv:
+          - name: TZ
+            value: America/Vancouver
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
 
   destination:
     server: https://kubernetes.default.svc
