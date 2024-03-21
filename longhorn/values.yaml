@@ -14,8 +14,8 @@ extraStorageClasses:
     dataLocality: best-effort
     diskSelector: nvme
   - name: longhorn-hdd
-    dataLocality: best-effort
+    dataLocality: disabled
     diskSelector: hdd
   - name: longhorn-large
-    dataLocality: best-effort
+    dataLocality: disabled
     diskSelector: large
