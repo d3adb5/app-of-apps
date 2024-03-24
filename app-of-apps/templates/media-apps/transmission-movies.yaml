@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: transmission-movies
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: {{ .Values.repository.url }}
+    targetRevision: HEAD
+    path: transmission
+
+    helm:
+      valuesObject:
+        replicaCount: 1
+        resources:
+          requests:
+            cpu: 350m
+            memory: 2Gi
+          limits:
+            cpu: 350m
+            memory: 2Gi
+        persistence:
+          config:
+            storageClass: longhorn-nvme
+        ingress:
+          enabled: true
+          className: nginx
+          host: movies.transmission.d3adb5.net
+          tls:
+            enabled: true
+            secretName: transmission-movies-tls
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+        peerService:
+          type: NodePort
+          nodePort: 32666
+          port: 32666
+        extraEnv:
+          - name: PEERPORT
+            value: "32666"
+          - name: TZ
+            value: America/Vancouver
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+        extraVolumes:
+          - name: movies-library
+            persistentVolumeClaim:
+              claimName: media-library-movies
+        extraVolumeMounts:
+          - name: movies-library
+            mountPath: /downloads
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.transmission.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+
+  ignoreDifferences:
+    - kind: Secret
+      name: transmission-web-secret
+      jsonPointers:
+        - /data/USER
+        - /data/PASS
