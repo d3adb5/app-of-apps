@@ -53,6 +53,15 @@ spec:
         extraVolumeMounts:
           - name: tv-library
             mountPath: /downloads
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values: [ transmission ]
+                topologyKey: kubernetes.io/hostname
 
   destination:
     server: https://kubernetes.default.svc
