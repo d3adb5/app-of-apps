@@ -13,7 +13,7 @@ spec:
 
     helm:
       valuesObject:
-        replicaCount: 0
+        replicaCount: 1
         image:
           repository: lscr.io/linuxserver/radarr
           tag: latest
@@ -47,15 +47,12 @@ spec:
           - name: PGID
             value: "1000"
         extraVolumes:
-          - name: media-library
+          - name: movies-library
             persistentVolumeClaim:
-              claimName: media-library
+              claimName: media-library-movies
         extraVolumeMounts:
-          - name: media-library
-            mountPath: /media
-          - name: media-library
+          - name: movies-library
             mountPath: /downloads
-            subPath: torrents
 
   destination:
     server: https://kubernetes.default.svc
