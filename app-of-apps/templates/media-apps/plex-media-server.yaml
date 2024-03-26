@@ -33,16 +33,19 @@ spec:
           VERSION: docker
           TZ: America/Vancouver
         extraVolumes:
-          - name: media-library
+          - name: movies-library
             persistentVolumeClaim:
-              claimName: media-library
+              claimName: media-library-movies
+          - name: tv-library
+            persistentVolumeClaim:
+              claimName: media-library-tv
         extraVolumeMounts:
-          - name: media-library
+          - name: tv-library
             mountPath: /media/tv
-            subPath: tv
-          - name: media-library
+            subPath: library
+          - name: movies-library
             mountPath: /media/movies
-            subPath: movies
+            subPath: library
         service:
           type: NodePort
           nodePort: 32400
