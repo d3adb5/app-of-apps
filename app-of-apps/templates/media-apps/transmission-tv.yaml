@@ -77,7 +77,7 @@ spec:
 
   ignoreDifferences:
     - kind: Secret
-      name: transmission-web-secret
+      name: transmission-tv-web-secret
       jsonPointers:
         - /data/USER
         - /data/PASS
