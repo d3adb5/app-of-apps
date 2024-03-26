@@ -48,49 +48,6 @@ transmission:
 sonarr:
   namespace: media
   valuesObject:
-    replicaCount: 0
-    image:
-      repository: lscr.io/linuxserver/sonarr
-      tag: latest
-      pullPolicy: Always
-    persistence:
-      config:
-        storageClass: longhorn-nvme
-    resources:
-      requests:
-        cpu: 100m
-        memory: 512Mi
-      limits:
-        cpu: 500m
-        memory: 512Mi
-    service:
-      port: 8989
-    ingress:
-      enabled: true
-      host: sonarr.d3adb5.net
-      className: nginx
-      tls:
-        enabled: true
-        secretName: sonarr-tls
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
-    extraEnv:
-      - name: TZ
-        value: America/Vancouver
-      - name: PUID
-        value: "1000"
-      - name: PGID
-        value: "1000"
-    extraVolumes:
-      - name: media-library
-        persistentVolumeClaim:
-          claimName: media-library
-    extraVolumeMounts:
-      - name: media-library
-        mountPath: /media
-      - name: media-library
-        mountPath: /downloads
-        subPath: torrents
 
 radarr:
   namespace: media
