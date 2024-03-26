@@ -12,6 +12,7 @@ longhorn:
 extraStorageClasses:
   - name: longhorn-nvme
     dataLocality: best-effort
+    numberOfReplicas: 2
     diskSelector: nvme
   - name: longhorn-hdd
     dataLocality: disabled
