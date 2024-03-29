@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operator-lifecycle-manager
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/operator-framework/operator-lifecycle-manager
+    targetRevision: v0.27.0
+    path: deploy/chart
+
+    helm:
+      valuesObject:
+        namespace: {{ .Values.olm.namespace }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.olm.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

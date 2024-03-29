@@ -1,6 +1,9 @@
 repository:
   url: https://github.com/d3adb5/argo-applications
 
+olm:
+  namespace: operator-lifecycle-manager
+
 argocd:
   namespace: argo-cd
 
