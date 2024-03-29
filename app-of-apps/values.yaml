@@ -4,6 +4,9 @@ repository:
 olm:
   namespace: operator-lifecycle-manager
 
+keycloak:
+  namespace: keycloak
+
 argocd:
   namespace: argo-cd
 
