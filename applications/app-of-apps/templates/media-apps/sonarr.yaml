@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: radarr
+  name: sonarr
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -9,13 +9,13 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: x-arr
+    path: charts/x-arr
 
     helm:
       valuesObject:
         replicaCount: 1
         image:
-          repository: lscr.io/linuxserver/radarr
+          repository: lscr.io/linuxserver/sonarr
           tag: latest
           pullPolicy: Always
         persistence:
@@ -29,14 +29,14 @@ spec:
             cpu: 500m
             memory: 512Mi
         service:
-          port: 7878
+          port: 8989
         ingress:
           enabled: true
-          host: radarr.d3adb5.net
+          host: sonarr.d3adb5.net
           className: nginx
           tls:
             enabled: true
-            secretName: radarr-tls
+            secretName: sonarr-tls
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt
         extraEnv:
@@ -47,16 +47,16 @@ spec:
           - name: PGID
             value: "1000"
         extraVolumes:
-          - name: movies-library
+          - name: tv-library
             persistentVolumeClaim:
-              claimName: media-library-movies
+              claimName: media-library-tv
         extraVolumeMounts:
-          - name: movies-library
+          - name: tv-library
             mountPath: /downloads
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.radarr.namespace }}
+    namespace: {{ .Values.sonarr.namespace }}
 
   syncPolicy:
     automated:

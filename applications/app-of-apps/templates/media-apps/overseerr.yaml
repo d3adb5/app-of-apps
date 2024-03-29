@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sonarr
+  name: overseerr
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -9,13 +9,13 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: x-arr
+    path: charts/x-arr
 
     helm:
       valuesObject:
         replicaCount: 1
         image:
-          repository: lscr.io/linuxserver/sonarr
+          repository: lscr.io/linuxserver/overseerr
           tag: latest
           pullPolicy: Always
         persistence:
@@ -23,20 +23,22 @@ spec:
             storageClass: longhorn-nvme
         resources:
           requests:
-            cpu: 100m
-            memory: 512Mi
+            cpu: 50m
+            memory: 256Mi
           limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 200m
+            memory: 384Mi
+        livenessProbe:
+          initialDelaySeconds: 120
         service:
-          port: 8989
+          port: 5055
         ingress:
           enabled: true
-          host: sonarr.d3adb5.net
+          host: requests.d3adb5.net
           className: nginx
           tls:
             enabled: true
-            secretName: sonarr-tls
+            secretName: overseerr-tls
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt
         extraEnv:
@@ -46,17 +48,10 @@ spec:
             value: "1000"
           - name: PGID
             value: "1000"
-        extraVolumes:
-          - name: tv-library
-            persistentVolumeClaim:
-              claimName: media-library-tv
-        extraVolumeMounts:
-          - name: tv-library
-            mountPath: /downloads
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.sonarr.namespace }}
+    namespace: {{ .Values.overseerr.namespace }}
 
   syncPolicy:
     automated:

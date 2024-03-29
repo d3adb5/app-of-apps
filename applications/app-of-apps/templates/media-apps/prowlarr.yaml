@@ -1,19 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keycloak
+  name: prowlarr
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: keycloak
+  project: media
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: keycloak
+    path: charts/x-arr
+
+    helm:
+      valuesObject:
+        {{- toYaml .Values.prowlarr.valuesObject | nindent 8 }}
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.keycloak.namespace }}
+    namespace: {{ .Values.prowlarr.namespace }}
 
   syncPolicy:
     automated:

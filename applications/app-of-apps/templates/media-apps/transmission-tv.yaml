@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: transmission
+    path: charts/transmission
 
     helm:
       valuesObject:

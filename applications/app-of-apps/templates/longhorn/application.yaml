@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: longhorn
+    path: applications/longhorn
 
     helm:
       valuesObject:

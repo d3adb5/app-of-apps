@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: app-of-apps
+    path: applications/app-of-apps
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.argocd.namespace }}

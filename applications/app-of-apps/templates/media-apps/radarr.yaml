@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: overseerr
+  name: radarr
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -9,13 +9,13 @@ spec:
   source:
     repoURL: {{ .Values.repository.url }}
     targetRevision: HEAD
-    path: x-arr
+    path: charts/x-arr
 
     helm:
       valuesObject:
         replicaCount: 1
         image:
-          repository: lscr.io/linuxserver/overseerr
+          repository: lscr.io/linuxserver/radarr
           tag: latest
           pullPolicy: Always
         persistence:
@@ -23,22 +23,20 @@ spec:
             storageClass: longhorn-nvme
         resources:
           requests:
-            cpu: 50m
-            memory: 256Mi
+            cpu: 100m
+            memory: 512Mi
           limits:
-            cpu: 200m
-            memory: 384Mi
-        livenessProbe:
-          initialDelaySeconds: 120
+            cpu: 500m
+            memory: 512Mi
         service:
-          port: 5055
+          port: 7878
         ingress:
           enabled: true
-          host: requests.d3adb5.net
+          host: radarr.d3adb5.net
           className: nginx
           tls:
             enabled: true
-            secretName: overseerr-tls
+            secretName: radarr-tls
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt
         extraEnv:
@@ -48,10 +46,17 @@ spec:
             value: "1000"
           - name: PGID
             value: "1000"
+        extraVolumes:
+          - name: movies-library
+            persistentVolumeClaim:
+              claimName: media-library-movies
+        extraVolumeMounts:
+          - name: movies-library
+            mountPath: /downloads
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.overseerr.namespace }}
+    namespace: {{ .Values.radarr.namespace }}
 
   syncPolicy:
     automated:
