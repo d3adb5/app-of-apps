@@ -13,9 +13,25 @@ spec:
           requests:
             storage: 2Gi
         storageClassName: longhorn-nvme
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  postgres-operator.crunchydata.com/cluster: keycloak
+                  postgres-operator.crunchydata.com/instance-set: "00"
+              topologyKey: kubernetes.io/hostname
   proxy:
     pgBouncer:
       replicas: 2
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  postgres-operator.crunchydata.com/cluster: keycloak
+                  postgres-operator.crunchydata.com/role: pgbouncer
+              topologyKey: kubernetes.io/hostname
   backups:
     pgbackrest:
       repos:
