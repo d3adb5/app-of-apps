@@ -1,0 +1,25 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    host: keycloak-pgbouncer
+    database: keycloak
+    schema: keycloak
+    usernameSecret:
+      name: keycloak-pguser-keycloak
+      key: user
+    passwordSecret:
+      name: keycloak-pguser-keycloak
+      key: password
+  http:
+    tlsSecret: keycloak-tls
+  hostname:
+    hostname: keycloak.d3adb5.net
+  proxy:
+    headers: xforwarded
+  ingress:
+    enabled: false

@@ -4,6 +4,9 @@ metadata:
   name: keycloak
 spec:
   postgresVersion: 15
+  databaseInitSQL:
+    name: keycloak-db-init-sql
+    key: init.sql
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
