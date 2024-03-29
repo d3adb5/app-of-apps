@@ -4,6 +4,12 @@ metadata:
   name: keycloak
 spec:
   postgresVersion: 15
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        parameters:
+          synchronous_commit: on
   instances:
     - replicas: 2
       dataVolumeClaimSpec:
