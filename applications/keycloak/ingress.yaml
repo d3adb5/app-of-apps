@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - keycloak.d3adb5.net
+        - id.d3adb5.net
       secretName: keycloak-tls
   rules:
-    - host: keycloak.d3adb5.net
+    - host: id.d3adb5.net
       http:
         paths:
           - pathType: ImplementationSpecific

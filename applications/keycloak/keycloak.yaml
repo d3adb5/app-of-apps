@@ -18,7 +18,7 @@ spec:
   http:
     tlsSecret: keycloak-tls
   hostname:
-    hostname: keycloak.d3adb5.net
+    hostname: id.d3adb5.net
   proxy:
     headers: xforwarded
   ingress:
