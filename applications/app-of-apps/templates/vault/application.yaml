@@ -41,6 +41,16 @@ spec:
                         app.kubernetes.io/instance: {{ quote "{{ .Release.Name }}" }}
                         component: server
                     topologyKey: kubernetes.io/hostname
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+            hosts:
+              - host: vault.d3adb5.net
+            tls:
+              - hosts: [ vault.d3adb5.net ]
+                secretName: vault-tls
 
   destination:
     server: https://kubernetes.default.svc
