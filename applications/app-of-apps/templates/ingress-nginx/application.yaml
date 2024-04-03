@@ -17,6 +17,8 @@ spec:
           service:
             annotations:
               metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
+          podAnnotations:
+            linkerd.io/inject: enabled
 
   destination:
     server: https://kubernetes.default.svc
