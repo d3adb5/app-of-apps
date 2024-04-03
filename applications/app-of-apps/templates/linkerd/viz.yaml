@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: linkerd-viz
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: The Linkerd visualizer
+  sourceRepos:
+    - https://helm.linkerd.io/stable
+  destinations:
+    - namespace: linkerd-viz
+      server: https://kubernetes.default.svc
+    - namespace: linkerd
+      server: https://kubernetes.default.svc
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+    - group: apiregistration.k8s.io
+      kind: APIService
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: linkerd-viz
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: linkerd-viz
+  source:
+    repoURL: https://helm.linkerd.io/stable
+    targetRevision: 30.12.11
+    chart: linkerd-viz
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: linkerd-viz
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
