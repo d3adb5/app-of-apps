@@ -16,6 +16,8 @@ spec:
         global:
           enabled: false
         server:
+          annotations:
+            linkerd.io/inject: enabled
           enabled: true
           resources:
             requests:
