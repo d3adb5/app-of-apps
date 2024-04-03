@@ -13,6 +13,8 @@ spec:
 
     helm:
       valuesObject:
+        podAnnotations:
+          linkerd.io/inject: enabled
         replicaCount: 1
         image:
           repository: lscr.io/linuxserver/sonarr

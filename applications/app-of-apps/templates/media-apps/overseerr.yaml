@@ -14,6 +14,8 @@ spec:
     helm:
       valuesObject:
         replicaCount: 1
+        podAnnotations:
+          linkerd.io/inject: enabled
         image:
           repository: lscr.io/linuxserver/overseerr
           tag: latest
