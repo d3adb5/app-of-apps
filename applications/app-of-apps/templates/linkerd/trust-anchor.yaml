@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: linkerd
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: linkerd-trust-anchor
+  namespace: linkerd
+spec:
+  encryptedData:
+    tls.crt: AgCjgc4ngGbntjiFSqSo1bkzOkN8OVVcSwMZ1aCqYEavpX+H2OGbzzxnjOZNnK73s345nkduZ5S8GHj6h/jnv0CHPsM1Mk1fxCDcdhP4expTWAi6V9dKDqiRO183kC00pN4CC0hjcGtpU6wqmM0eStjOmnDdQEepkl9NQ6rSA3ctlKbY8KcjZSXHRZ3d6zYyq9hSgiy0tBA+WHFTb+jV/pTfat4JcSlgTe8hTPGpijHXyY7MPrRr3P9aw4Wjf/Pu3I/jYR06o4h1oTcfxLd+CTpmghiqvQj/uS/ZBNyEErOqX+rASQUv/saIwjtBto9/mHMsu/zETiId6KJIh2iZYKJ5foye6wBmRrjXvemH5l6UFj1GAFD4sOYn6tOP7stszHnbP4aQwTaLaGycXwTaheAvZU6sSN1WBlePgJvIXpGFqaYWbi/kaQRtw/JWaAbPWhTMxPsCDhgMBiE/5YCjIK3mXUECWYJkrGIzVTGTV9dSXTP6jGWvGRfnJvS42yAOAcUQHzjcMeObHl4+KOa+WaI6AGxlKI4bOdfu0GexyFjt02N5DPUJ/xKSIBGxGzEcbadNbCx+SR/qWttLW/8nuHbQ6ERr/DiRBlQ1gFe5XewhWzhpYP9MT62rLyvfTBvb9j7MmO/ZHCpq93uf+BMNkJnobfbfYTjFOEf1lrv5+0VgUWWr0azoUECbJso/f5djmojOILePRKkwevle2KwsdFE3n7W1ocIq31wsyqckxGRnW6duxsu1u/5PCwIkRwuWCE787M6aseEfO1vPKG7zSswcOG4KPMEhXUqzu/z8uJpUkvbEK9zQRHZeL9vyAiWsi45pHWrTh1lashemAXaicLD9WfN8GK5HfRfiZC0tAQMCAISrkn6I9b6jTXZymixOUvq/6MNJgqpG0Jj/wQipeTqKm/88kTWhdk2cHiGiTjq4jfTRdDuBfCYGFhWXYYW7DNT7oAv46rWfwOT3SwFBHJioXcQDj5AMi9eVATDSgdAYMAvD007QGIv693onwNKNfO0EwLkAaD5uKwEAvUhQw4PH+2z1KLgBCP9LbQW60SFhb5RB+PJq2WY1LVqv7PKZPm5mMp6xnOmEW+/mGn2QN/BxcLHOlMjeD2o0obhUG7XpNHH3whp3clFglpO+/62lDjdSZCGQ8eiB6q42iSAUXVG8La8eHjQLUB1WRJqxeSdzs7lj/rRpv8JKnQPGY2fRCxC0UkrocYgq61NY+lP2kMrp2xjbfKkG5YTN5+gzd9KUfcjMnUw/OcnGBKaklhzruRUOM+fhAiCzuG5zExCd4S4+aAHkq+/lnhblTuZlGsFoMF34IxfdzoThvmzT/lPrHUEtokhrEsyDr9HCpBlFOMHptX138wXT745o9Z7DXImLR1h48VU/I6emrLrqvQCN8p41NTtoTwD7wdMCun4ax4phDFf2OrTPPMivP04E1a1KVpWV5F8X8cfOw5rK+EKbPQG1Ii+irQ4KqcA/wlocaDJIJ26Zvp/Izg==
+    tls.key: AgBMXsplaS2/z/llM4rwVaSumFGwB04VovtjiE2HJTlSz/Hqj3dWWY5jW87oZIUeGni/dErRt9mqGEpLeAzZsvQtC1JE1P30mF4XCBnLGnNWOSLf3ffwZIFJtRydRFh6PHlQHjKrMP8xL++OJ7phVnUdASTT++rbyTRhlxtKsg+o4RPreSao6JzcG0qe3RqUqGJRoTY5EI0tbyStqUN5qDBE/F2M7CA5GKNWFbUqJwZ0hSsT1KEpHHVvsWdxY/3BVKAir04EVGVBuh3qGNwneGRfWoY5o7L0YB5JoEeAIghoac5AFa10iT5MHSRo83QpUSHtKXF6x2ixVQPZeFvHA/z9NDXRO1PTgtVvXzQr4EuEMz5lJaR/sH3BfrxSLbUGAYIRJFe48gMSMTUn04nmraV0l4CuMyi2cpkqVVy2bNcXhPtHof4Gy1m1phl2nNy9f3KxNpNK79FFlzcmqoYGFI2j/UA8CYgwC7GK+k9xB/KLTzTeOERO6mCw6LGNrscthgotC2Z7kdOoGYiqDaoxBsNG/S1ajWFQBgzucAfYWhcqdyF9Fu+pZkOcZmo6sVejHbjtAwmqiyLAOdRaYaq0wPOtWVMtvksNtXe/NI9eeY3xML+5Ug8SdN2vF4roDyOsV1D0FOmQgsuzxA8wi3oZfuEAyKR4XCPe4UI1w4P4cQclZrIpVIQ0+aJdGYU3wkOC1r0EZ4u+7B0AWnxt6fQM3b19BBNbFLRxxwsIS27rkwwBTpVU/u4QKPgLH2FsBmRyWYvYSg3sruHJ2m6fcYKfjASISdTiXPF/TrvxR12CP8uPJykTHXF1SDetbmMduIMKQxIRjls4IVW//opgWQ7FRGdXqd3h9PG7EvIEppRrewJAx5MpyKLMkBMK2jIE5IzABKbf+NBjWwQw59NDMnE9RCsEXqZSSmPjvUXXJeRvRJmaNdP6xOh/UJouinFFF30D2Y6LD7vGoNe86yuNpNVYROTX6TATeYkezC/ZLv1PoQQpG6zE+Q==
+  template:
+    metadata:
+      name: linkerd-trust-anchor
+      namespace: linkerd
+      labels:
+        linkerd.io/control-plane-component: identity
+        linkerd.io/control-plane-ns: linkerd
+    type: kubernetes.io/tls
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: linkerd-trust-anchor
+  namespace: linkerd
+spec:
+  ca:
+    secretName: linkerd-trust-anchor
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: linkerd-identity-issuer
+  namespace: linkerd
+spec:
+  secretName: linkerd-identity-issuer
+  duration: 730h0m0s
+  renewBefore: 1h0m0s
+  issuerRef:
+    name: linkerd-trust-anchor
+    kind: Issuer
+  dnsNames:
+    - identity.linkerd.cluster.local
+  isCA: true
+  privateKey:
+    algorithm: ECDSA
+  usages:
+    - cert sign
+    - crl sign
+    - server auth
+    - client auth
