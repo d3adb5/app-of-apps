@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: linkerd-crds
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: The Linkerd CRDs
+  sourceRepos:
+    - https://helm.linkerd.io/stable
+  destinations:
+    - namespace: linkerd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: linkerd-crds
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: linkerd-crds
+  source:
+    repoURL: https://helm.linkerd.io/stable
+    targetRevision: 1.8.0
+    chart: linkerd-crds
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: linkerd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,101 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: linkerd-control-plane
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: The Linkerd control plane
+  sourceRepos:
+    - https://helm.linkerd.io/stable
+  destinations:
+    - namespace: linkerd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: linkerd-control-plane
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: linkerd-control-plane
+  source:
+    repoURL: https://helm.linkerd.io/stable
+    targetRevision: 1.16.11
+    chart: linkerd-control-plane
+
+    helm:
+      valuesObject:
+        identityTrustAnchorsPEM: |
+          -----BEGIN CERTIFICATE-----
+          MIIBjTCCATOgAwIBAgIQIvht8hmkwHraoV7BtVvwgjAKBggqhkjOPQQDAjAlMSMw
+          IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yNDA0MDMwMTIw
+          NTJaFw0yOTA0MDIwMTIwNTJaMCUxIzAhBgNVBAMTGnJvb3QubGlua2VyZC5jbHVz
+          dGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE4EeQn8MUtU3UBWeW
+          dg3YaBncGPGAzO/hDh2zZ/uHkH47O8Q3V7lhwPUYDBG5WDe0DIad6Mz/4VgArI1L
+          0SI7BqNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYD
+          VR0OBBYEFKrK/huKsXPuF5Eoqo8Zy97yI9+WMAoGCCqGSM49BAMCA0gAMEUCIBCj
+          JBT2hrqrkmgO1bXlTE6cnyvJw+/v/bcGuOSO90EyAiEA6QKMzMi5S1nybawDYTuC
+          xmzLng6l/Y18scw8DdDS8iQ=
+          -----END CERTIFICATE-----
+        identity:
+          issuer:
+            scheme: kubernetes.io/tls
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: linkerd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name:  linkerd-proxy-injector-k8s-tls
+      jsonPointers:
+        - /data/tls.crt
+        - /data/tls.key
+    - group: ""
+      kind: Secret
+      name:  linkerd-sp-validator-k8s-tls
+      jsonPointers:
+        - /data/tls.crt
+        - /data/tls.key
+    - group: ""
+      kind: Secret
+      name:  linkerd-policy-validator-k8s-tls
+      jsonPointers:
+        - /data/tls.crt
+        - /data/tls.key
+    - group: admissionregistration.k8s.io/v1
+      kind: MutatingWebhookConfiguration
+      name:  linkerd-proxy-injector-webhook-config
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+    - group: admissionregistration.k8s.io/v1
+      kind: ValidatingWebhookConfiguration
+      name:  linkerd-sp-validator-webhook-config
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+    - group: admissionregistration.k8s.io/v1
+      kind: ValidatingWebhookConfiguration
+      name:  linkerd-policy-validator-webhook-config
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
