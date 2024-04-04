@@ -13,6 +13,9 @@ spec:
 
     helm:
       valuesObject:
+        podAnnotations:
+          linkerd.io/inject: enabled
+          config.linkerd.io/opaque-ports: "25565"
         workloadAsStatefulSet: true
         strategyType: RollingUpdate
         persistence:
