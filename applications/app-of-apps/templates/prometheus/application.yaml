@@ -13,8 +13,22 @@ spec:
 
     helm:
       valuesObject:
+        kube-state-metrics:
+          podAnnotations:
+            linkerd.io/inject: enabled
+        prometheusOperator:
+          podAnnotations:
+            linkerd.io/inject: enabled
+        alertmanager:
+          alertmanagerSpec:
+            podMetadata:
+              annotations:
+                linkerd.io/inject: enabled
         prometheus:
           prometheusSpec:
+            podMetadata:
+              annotations:
+                linkerd.io/inject: enabled
             storageSpec:
               volumeClaimTemplate:
                 spec:
@@ -24,6 +38,8 @@ spec:
                     requests:
                       storage: 10Gi
         grafana:
+          podAnnotations:
+            linkerd.io/inject: enabled
           persistence:
             enabled: true
             size: 2Gi
