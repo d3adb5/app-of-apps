@@ -21,6 +21,11 @@ spec:
         configs:
           params:
             server.insecure: true
+          cm:
+            accounts.difford: apiKey
+          rbac:
+            policy.csv: |
+              g, difford, role:readonly
 
         controller:
           replicas: 1
