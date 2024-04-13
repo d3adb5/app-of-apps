@@ -1,0 +1,44 @@
+name: Argo CD
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  diff:
+    name: Differences
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: clowdhaus/argo-cd-action@v2.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          command: version
+          options: --client
+      - name: Gather differences in the app of apps
+        env:
+          ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
+        run: |
+          echo '```diff' > diff.txt
+          set +e -o pipefail
+          argocd app diff app-of-apps --revision ${{ github.sha }} \
+            --server ${{ vars.ARGOCD_SERVER }} --grpc-web | tee -a diff.txt
+          status="$?"
+          echo '```' >> diff.txt
+          set -e
+
+          if [ "$status" -ne 0 ] && [ "$status" -ne 1 ]; then
+            echo "A failure happened while running the app diff command." > diff.txt
+            exit 1
+          elif [ "$status" -eq 0 ]; then
+            echo "No differences found in the app of apps." > diff.txt
+          fi
+      - name: Comment results on the pull request
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          filePath: diff.txt
