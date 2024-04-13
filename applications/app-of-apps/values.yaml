@@ -1,5 +1,5 @@
 repository:
-  url: https://github.com/d3adb5/argo-applications
+  url: https://github.com/d3adb5/app-of-apps
 
 olm:
   namespace: operator-lifecycle-manager
