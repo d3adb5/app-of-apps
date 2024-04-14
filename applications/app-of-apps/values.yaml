@@ -48,20 +48,10 @@ minecraft:
 vault:
   namespace: vault
 
-plex:
+media:
   namespace: media
-
-transmission:
-  namespace: media
-
-sonarr:
-  namespace: media
-
-radarr:
-  namespace: media
-
-overseerr:
-  namespace: media
-
-prowlarr:
-  namespace: media
+  libraries:
+    movies:
+      claimName: media-library-movies
+    tv:
+      claimName: media-library-tv

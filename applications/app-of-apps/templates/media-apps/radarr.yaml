@@ -48,7 +48,7 @@ spec:
         extraVolumes:
           - name: movies-library
             persistentVolumeClaim:
-              claimName: media-library-movies
+              claimName: {{ .Values.media.libraries.movies.claimName }}
         extraVolumeMounts:
           - name: movies-library
             mountPath: /downloads
@@ -66,7 +66,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.radarr.namespace }}
+    namespace: {{ .Values.media.namespace }}
 
   syncPolicy:
     automated:
