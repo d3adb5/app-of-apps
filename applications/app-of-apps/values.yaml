@@ -56,7 +56,6 @@ transmission:
 
 sonarr:
   namespace: media
-  valuesObject:
 
 radarr:
   namespace: media
@@ -66,32 +65,3 @@ overseerr:
 
 prowlarr:
   namespace: media
-  valuesObject:
-    podAnnotations:
-      linkerd.io/inject: enabled
-    replicaCount: 1
-    image:
-      repository: lscr.io/linuxserver/prowlarr
-      tag: latest
-      pullPolicy: Always
-    persistence:
-      config:
-        storageClass: longhorn-nvme
-    service:
-      port: 9696
-    ingress:
-      enabled: true
-      host: prowlarr.d3adb5.net
-      className: nginx
-      tls:
-        enabled: true
-        secretName: prowlarr-tls
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
-    extraEnv:
-      - name: TZ
-        value: America/Vancouver
-      - name: PUID
-        value: "1000"
-      - name: PGID
-        value: "1000"
