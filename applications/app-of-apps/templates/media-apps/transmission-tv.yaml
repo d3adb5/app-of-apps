@@ -13,6 +13,10 @@ spec:
 
     helm:
       valuesObject:
+        image:
+          repository: lscr.io/linuxserver/transmission
+          pullPolicy: IfNotPresent
+          tag: "4.0.5@sha256:2205fe1977b68449bcee4e17527801b5cef80bfa9a4ca308b221d6a371a022d1"
         podAnnotations:
           linkerd.io/inject: enabled
         replicaCount: 1
