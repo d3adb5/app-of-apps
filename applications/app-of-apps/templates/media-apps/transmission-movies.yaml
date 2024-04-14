@@ -7,9 +7,9 @@ metadata:
 spec:
   project: media
   source:
-    repoURL: {{ .Values.repository.url }}
-    targetRevision: HEAD
-    path: charts/transmission
+    repoURL: {{ .Values.charts.repository }}
+    targetRevision: 0.1.0
+    chart: transmission
 
     helm:
       valuesObject:
