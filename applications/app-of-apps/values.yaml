@@ -56,7 +56,6 @@ transmission:
 
 sonarr:
   namespace: media
-  valuesObject:
 
 radarr:
   namespace: media
