@@ -27,16 +27,6 @@ spec:
               {{- toYaml .Values.longhorn.ingress.annotations | nindent 14 }}
             tls: {{ .Values.longhorn.ingress.tls }}
 
-          defaultSettings:
-            {{- toYaml .Values.longhorn.defaultSettings | nindent 12 }}
-
-          longhornManager:
-            tolerations:
-              {{- toYaml .Values.longhorn.tolerations | nindent 14 }}
-          longhornDriver:
-            tolerations:
-              {{- toYaml .Values.longhorn.tolerations | nindent 14 }}
-
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.longhorn.namespace }}

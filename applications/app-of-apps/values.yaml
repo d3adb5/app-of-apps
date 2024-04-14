@@ -25,19 +25,12 @@ certManager:
 
 longhorn:
   namespace: longhorn
-  defaultSettings:
-    taintToleration: "purpose=storage:NoSchedule"
   ingress:
     host: longhorn.d3adb5.net
     ingressClassName: nginx
     tls: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-  tolerations:
-    - key: purpose
-      operator: Equal
-      value: storage
-      effect: NoSchedule
 
 prometheus:
   namespace: prometheus
@@ -48,20 +41,10 @@ minecraft:
 vault:
   namespace: vault
 
-plex:
+media:
   namespace: media
-
-transmission:
-  namespace: media
-
-sonarr:
-  namespace: media
-
-radarr:
-  namespace: media
-
-overseerr:
-  namespace: media
-
-prowlarr:
-  namespace: media
+  libraries:
+    movies:
+      claimName: media-library-movies
+    tv:
+      claimName: media-library-tv

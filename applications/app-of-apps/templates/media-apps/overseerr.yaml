@@ -62,7 +62,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.overseerr.namespace }}
+    namespace: {{ .Values.media.namespace }}
 
   syncPolicy:
     automated:

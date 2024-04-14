@@ -35,10 +35,10 @@ spec:
         extraVolumes:
           - name: movies-library
             persistentVolumeClaim:
-              claimName: media-library-movies
+              claimName: {{ .Values.media.libraries.movies.claimName }}
           - name: tv-library
             persistentVolumeClaim:
-              claimName: media-library-tv
+              claimName: {{ .Values.media.libraries.tv.claimName }}
         extraVolumeMounts:
           - name: tv-library
             mountPath: /media/tv
@@ -65,7 +65,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.plex.namespace }}
+    namespace: {{ .Values.media.namespace }}
 
   syncPolicy:
     automated:

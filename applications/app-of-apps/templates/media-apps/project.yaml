@@ -10,7 +10,7 @@ spec:
   sourceRepos:
     - "*"
   destinations:
-    - namespace: {{ .Values.plex.namespace }}
+    - namespace: {{ .Values.media.namespace }}
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ''
