@@ -1,5 +1,0 @@
-apiVersion: v2
-name: arr
-description: A Helm chart for applications like Sonarr, Radarr, etc.
-version: 0.1.0
-type: application
