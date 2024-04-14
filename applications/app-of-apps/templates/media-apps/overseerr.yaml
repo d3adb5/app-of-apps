@@ -7,9 +7,9 @@ metadata:
 spec:
   project: media
   source:
-    repoURL: {{ .Values.repository.url }}
-    targetRevision: HEAD
-    path: charts/x-arr
+    repoURL: {{ .Values.charts.repository }}
+    targetRevision: 1.1.0
+    chart: stateful
 
     helm:
       valuesObject:
@@ -20,9 +20,6 @@ spec:
           repository: lscr.io/linuxserver/overseerr
           tag: latest
           pullPolicy: Always
-        persistence:
-          config:
-            storageClass: longhorn-nvme
         resources:
           requests:
             cpu: 50m
@@ -50,6 +47,18 @@ spec:
             value: "1000"
           - name: PGID
             value: "1000"
+        extraVolumeMounts:
+          - name: config
+            mountPath: /config
+        extraVolumeClaimTemplates:
+          - metadata:
+              name: config
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: longhorn-nvme
+              resources:
+                requests:
+                  storage: 512Mi
 
   destination:
     server: https://kubernetes.default.svc

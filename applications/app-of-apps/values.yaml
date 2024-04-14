@@ -1,6 +1,9 @@
 repository:
   url: https://github.com/d3adb5/app-of-apps
 
+charts:
+  repository: https://charts.d3adb5.net/
+
 olm:
   namespace: operator-lifecycle-manager
 
