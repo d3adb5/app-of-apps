@@ -25,19 +25,12 @@ certManager:
 
 longhorn:
   namespace: longhorn
-  defaultSettings:
-    taintToleration: "purpose=storage:NoSchedule"
   ingress:
     host: longhorn.d3adb5.net
     ingressClassName: nginx
     tls: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-  tolerations:
-    - key: purpose
-      operator: Equal
-      value: storage
-      effect: NoSchedule
 
 prometheus:
   namespace: prometheus
