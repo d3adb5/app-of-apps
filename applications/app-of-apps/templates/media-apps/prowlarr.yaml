@@ -7,13 +7,49 @@ metadata:
 spec:
   project: media
   source:
-    repoURL: {{ .Values.repository.url }}
-    targetRevision: HEAD
-    path: charts/x-arr
+    repoURL: {{ .Values.charts.repository }}
+    targetRevision: 1.1.0
+    chart: stateful
 
     helm:
       valuesObject:
-        {{- toYaml .Values.prowlarr.valuesObject | nindent 8 }}
+        podAnnotations:
+          linkerd.io/inject: enabled
+        replicaCount: 1
+        image:
+          repository: lscr.io/linuxserver/prowlarr
+          tag: latest
+          pullPolicy: Always
+        service:
+          port: 9696
+        ingress:
+          enabled: true
+          host: prowlarr.d3adb5.net
+          className: nginx
+          tls:
+            enabled: true
+            secretName: prowlarr-tls
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+        extraEnv:
+          - name: TZ
+            value: America/Vancouver
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
+        extraVolumeMounts:
+          - name: config
+            mountPath: /config
+        extraVolumeClaimTemplates:
+          - metadata:
+              name: config
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: longhorn-nvme
+              resources:
+                requests:
+                  storage: 512Mi
 
   destination:
     server: https://kubernetes.default.svc
