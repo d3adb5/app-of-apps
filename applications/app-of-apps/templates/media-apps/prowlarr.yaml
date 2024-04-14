@@ -18,8 +18,8 @@ spec:
         replicaCount: 1
         image:
           repository: lscr.io/linuxserver/prowlarr
-          tag: latest
-          pullPolicy: Always
+          tag: "1.15.0sha256:335388a2b30603bcd69d7411f3bfb37c54a8799eb1f76bae1f42ec6b2f9a5a79"
+          pullPolicy: IfNotPresent
         service:
           port: 9696
         ingress:

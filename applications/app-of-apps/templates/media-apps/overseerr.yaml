@@ -18,8 +18,8 @@ spec:
           linkerd.io/inject: enabled
         image:
           repository: lscr.io/linuxserver/overseerr
-          tag: latest
-          pullPolicy: Always
+          tag: "1.33.2@sha256:ce5f9433d4990395df2c8d9beeb6b13a55f17259f6299fc51eb5a7c37209431f"
+          pullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 50m
