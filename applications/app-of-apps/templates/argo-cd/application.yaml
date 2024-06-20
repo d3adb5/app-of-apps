@@ -72,3 +72,8 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.argocd.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
