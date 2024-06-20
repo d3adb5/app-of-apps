@@ -23,6 +23,12 @@ spec:
             server.insecure: true
           cm:
             accounts.difford: apiKey
+            oidc.config: |
+              name: Keycloak
+              issuer: https://id.d3adb5.net/realms/laboratory
+              clientID: argocd
+              clientSecret: $oidc.keycloak.clientSecret
+              requestedScopes: ["openid", "profile", "email", "groups"]
           rbac:
             policy.csv: |
               g, difford, role:readonly
