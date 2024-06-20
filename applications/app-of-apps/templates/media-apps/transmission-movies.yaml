@@ -16,7 +16,7 @@ spec:
         image:
           repository: lscr.io/linuxserver/transmission
           pullPolicy: IfNotPresent
-          tag: "4.0.5@sha256:2205fe1977b68449bcee4e17527801b5cef80bfa9a4ca308b221d6a371a022d1"
+          tag: "4.0.6@sha256:cbd1f91f9c31615057ce2744aad8589f343176b4895d13afa656d2d54dd12b66"
         podAnnotations:
           linkerd.io/inject: enabled
         replicaCount: 1
