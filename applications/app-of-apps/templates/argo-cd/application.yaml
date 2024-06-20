@@ -31,6 +31,7 @@ spec:
               requestedScopes: ["openid", "profile", "email", "groups"]
           rbac:
             policy.csv: |
+              g, Admin,   role:admin
               g, difford, role:readonly
 
         controller:
