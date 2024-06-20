@@ -8,7 +8,7 @@ spec:
   project: vault
   source:
     repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.27.0
+    targetRevision: 0.28.0
     chart: vault
 
     helm:

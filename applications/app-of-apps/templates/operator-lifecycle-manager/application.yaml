@@ -8,7 +8,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/operator-framework/operator-lifecycle-manager
-    targetRevision: v0.27.0
+    targetRevision: v0.28.0
     path: deploy/chart
 
     helm:
