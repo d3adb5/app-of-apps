@@ -25,7 +25,7 @@ spec:
             accounts.difford: apiKey
             oidc.config: |
               name: Keycloak
-              issuer: https://id.d3adb5.net/realms/laboratory
+              issuer: https://id.d3adb5.net/realms/core
               clientID: argocd
               clientSecret: $oidc.keycloak.clientSecret
               requestedScopes: ["openid", "profile", "email", "groups"]
