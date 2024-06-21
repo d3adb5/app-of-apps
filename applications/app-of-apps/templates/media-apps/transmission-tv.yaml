@@ -39,6 +39,8 @@ spec:
             secretName: transmission-tv-tls
           annotations:
             cert-manager.io/cluster-issuer: letsencrypt
+            nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+            nginx.ingress.kubernetes.io/auth-url: "http://oauth2-proxy.{{ .Values.media.namespace }}.svc.cluster.local/oauth2/auth"
         peerService:
           type: NodePort
           nodePort: 32444
