@@ -62,9 +62,14 @@ kind: Ingress
 metadata:
   name: oauth2-proxy
   namespace: {{ .Values.media.namespace }}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   ingressClassName: nginx
   tls:
+    - hosts:
+        - media.id.d3adb5.net
+      secretName: oauth2-proxy-tls
     - hosts:
         - sonarr.d3adb5.net
       secretName: sonarr-tls
@@ -81,6 +86,16 @@ spec:
         - movies.transmission.d3adb5.net
       secretName: transmission-movies-tls
   rules:
+    - host: media.id.d3adb5.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oauth2-proxy
+                port:
+                  number: 4180
     {{- range list "sonarr" "radarr" "prowlarr" "tv.transmission" "movies.transmission" }}
     - host: {{ . }}.d3adb5.net
       http:
