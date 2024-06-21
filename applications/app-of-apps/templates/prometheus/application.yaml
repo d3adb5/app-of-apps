@@ -16,6 +16,14 @@ spec:
         kube-state-metrics:
           podAnnotations:
             linkerd.io/inject: enabled
+        prometheus-node-exporter:
+          resources:
+            limits:
+              cpu: 100m
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
         prometheusOperator:
           podAnnotations:
             linkerd.io/inject: enabled
