@@ -1,0 +1,95 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: oauth2-proxy
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: "https://oauth2-proxy.github.io/manifests"
+    targetRevision: 7.7.4
+    chart: oauth2-proxy
+
+    helm:
+      valuesObject:
+        autoscaling:
+          enabled: true
+        config:
+          existingSecret: oauth2-proxy-credentials
+          configFile: |
+            email_domains = ["*"]
+            upstreams = [ "file:///dev/null" ]
+            provider = "keycloak"
+            provider_display_name = "Keycloak"
+            login_url = "https://id.d3adb5.net/realms/core/protocol/openid-connect/auth"
+            redeem_url = "https://id.d3adb5.net/realms/core/protocol/openid-connect/token"
+            validate_url = "https://id.d3adb5.net/realms/core/protocol/openid-connect/userinfo"
+            profile_url = "https://id.d3adb5.net/realms/core/protocol/openid-connect/userinfo"
+            oidc_issuer_url = "https://id.d3adb5.net/realms/core"
+            scope = "openid"
+            cookie_domains = ["sonarr.d3adb5.net","radarr.d3adb5.net","prowlarr.d3adb5.net","*.transmission.d3adb5.net"]
+            whitelist_domains = [".d3adb5.net:*"]
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.media.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: oauth2-proxy-credentials
+  namespace: {{ .Values.media.namespace }}
+spec:
+  template:
+    metadata:
+      name: oauth2-proxy-credentials
+      namespace: {{ .Values.media.namespace }}
+  encryptedData:
+    client-id: AgB4h1pghaICev/SVTVsC0j9latWGMa0dAKD1085B7Qr6A4CDeTZbqkCxZopaVOi4OzJJey4OMoXthvbvWatDS6d5/ARE2vSyCHxGuIeMqvkXFKdCwWxG6dSIXKUMxXKv72TWeq+c4qmKB7RmZOFh7SfULxIsVc6v+8japJN0RmsfstG8FfcwXA5+tq/ezePTt9OHvsh/lbmyGtZbCMsBVoIq2a33+OzqIrE2zXdA3yun9FciO/GLGqcaaNGJ0zcq3MyYVctEfA8oDHLk2e/G6HGseaD+Lo6I6glC5z6kLGWpCUsrjY3BFZLoqmSMPysIeflYtcfiSfMOdAME5LiHsqgdWwm6mCZTd5ceNqPno9+lSpCxNoXokJ5ZebvFzvMJB1eXd4ErCDihx+P0BSFWV2DXAQLV31c4NoiaxS9Q57wRunghPjdLsDMpuECgFOQq8hjshoccjWCMlHr/AWowncbVtY6/9vNM2b0B2ah1b+xDZS3hJ9DTfXSe3l7QDwzb+lrE2+kFWPv/iFg6KeMxWawERU55J4Z1QEUiW3x75WIG/BC+cSrfiY/s8au7SEfr/sBo0dAxeGvbKu5ZGOElNgIgJrUTIa+aj2dHCyTCLTqKbtXHDA1yuglM8bCSeK9pjhIiBba3iLx54O/fWD50Wsjq9Ty986MBLiceEErQAAy5A/BHr3HX90Jcu0Ybe6pwHm5mAx40mQ/nmP1
+    client-secret: AgCcYlr70KrgwNqTtmrHfl/kb+ORneInGpnxx5EfPsAtC89lxi71OdgO3UgcCk71AhIewMXULl439u/N2EgUdiC9bgT4qFSmkW95L0BCuvNzOdKHYYQ8e4zaE8CqKe2tMaqvKsOSnyVVzFcOuwrKLbPJcUog5bycAKLEqr5ArryY+vPmXS2n2ODUBcKhUtTTpCIeZHiVDoGRhtMYu4BUWcCyySEHVZpJMzsJ8KQCQ7X678Qtp2cXiVa8mquKeaesRHnCSqAaGrQvFHR5UNr/3950Rr9enIvAhlYw+6DOp3DSs6/luoOq5kkjYnwT3lXOhuDx2QVIFzWio4lC0XMW0TZvmNPHvNZEgBKgzNsHbv8uAbKdIXAFvOSllczSsYtrButA7azNvLDe/hAt67l04WTPkA4hxrjsmhuY/UA5/9ZMeQKyx9T2x2yCfyNPDPQ29hYeO9wUGR44iJJEyfixiQte/Hp8aoMu0uK1fmkcPD9CJCeT9hAH0oiFldmOSPn7kWkTVjdNFFDaaB4G9XA6L9cWS1Oiyzppq7FihyDVDH4gWJ81A5MYRK8ieGyd2OclQ+FF3jTd4hR/D3Dl8EgHNiU18yYrOq8mCjfrvuyQ8waM7kJBw/nsCBVWAHagBWEmDPaSed4yTv/XlAXkciU3gFyg52ZXnXrIjiIZVJE8RwzjxmVn83c+71hw/ypa2ZwN9f33bjjNbDQ0lEDwv++N2YvDg8eRdVfbsvPU71LgxfHffA==
+    cookie-secret: AgBST5T6nLR3ZgVjBiMghaIfvFyVPh3+fFhEtnGs6eS78pD1tw7eRKI8l9Y5iEI/kUyXJ3cVODpUH9U4wxdJTs3EZvHB9GoaRRPNK3Yqs91k00vEAZOgv58QTnakmTY0RkJKAwM0F/ciQtOW0CSbO+qD1Ov6LbtDaA9AmNhlgP/faMS9ju3NDHG4j/aZlQGvouIKqx9OlQzP5+JzZPAiA4Gr7g4N4Vh0iM0jhcb+ReMpvUJgr7nPkILe8J8BJqZ429dc676ieo7KZXi8OFw3I+7WmhErgaMWjYMQgValw11zb+8ZA5eSWRWcR9BImkSwSouJejEYZrwAmwU3JB3AWneWdSJ2gOaFH7G/YScIF5sW1poYJvfOgKgsOp9OtHMb+BzqPAWECkHptRbQy90GNmpNhLnoR1aVmmi1Tb/P/xz+jh/7jKajJPuQuUR9Jugru7AYvf25AzLHnkuJzg2R4KqKcXCvtDYHbc8mlJh7ojRNbTxvBm4wKefD0pSbDAJa3f0R7hrn/V8YzzED8mczs1wwZV9SdGW7C8peGQFxLaTJHjUOOO3Roypi+Jen5YfuN4k5lSY2uVbNGzXkuBMKQChZfrigM1/+EYK1shJBOhbZgntnj7RfXGev7bxZhkpEskTBmQD5axqQblBz3ZvmB+RuCPgttKqddZHDTi/1E7KXxLeSkW0OECgLeaGGoCU2x6z4Qpp9a+2+6xMlJKRPf/VjbMHLFDo2krInL0MEsAGWsg==
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oauth2-proxy
+  namespace: {{ .Values.media.namespace }}
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - sonarr.d3adb5.net
+      secretName: sonarr-tls
+    - hosts:
+        - radarr.d3adb5.net
+      secretName: radarr-tls
+    - hosts:
+        - prowlarr.d3adb5.net
+      secretName: prowlarr-tls
+    - hosts:
+        - tv.transmission.d3adb5.net
+      secretName: transmission-tv-tls
+    - hosts:
+        - movies.transmission.d3adb5.net
+      secretName: transmission-movies-tls
+  rules:
+    {{- range list "sonarr" "radarr" "prowlarr" "tv.transmission" "movies.transmission" }}
+    - host: {{ . }}.d3adb5.net
+      http:
+        paths:
+          - path: /oauth2
+            pathType: Prefix
+            backend:
+              service:
+                name: oauth2-proxy
+                port:
+                  number: 4180
+    {{- end }}
