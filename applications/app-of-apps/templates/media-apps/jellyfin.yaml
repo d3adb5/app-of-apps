@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyfin
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: https://djjudas21.github.io/charts
+    targetRevision: 3.0.1
+    chart: jellyfin
+
+    helm:
+      valuesObject:
+        jellyfin:
+          mediaVolumes:
+            - name: movies
+              readOnly: true
+              existingClaim: media-library-movies
+            - name: tv
+              readOnly: true
+              existingClaim: media-library-tv
+        persistence:
+          config:
+            enabled: true
+            volumeClaimSpec:
+              storageClassName: longhorn-nvme
+          data:
+            enabled: true
+            volumeClaimSpec:
+              storageClassName: longhorn-nvme
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          hostname: jellyfin.d3adb5.net
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.media.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
