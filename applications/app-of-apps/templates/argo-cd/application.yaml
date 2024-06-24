@@ -31,10 +31,9 @@ spec:
               requestedScopes: ["openid", "profile", "email", "groups"]
           rbac:
             policy.csv: |
-              g, /Admin,          role:admin
-              g, /Argo CD/Admin,  role:admin
-              g, /Argo CD/Reader, role:readonly
-              g, difford,         role:readonly
+              g, /Admin,   role:admin
+              g, /Argo CD, role:readonly
+              g, difford,  role:readonly
 
         controller:
           replicas: 1
