@@ -54,11 +54,11 @@ spec:
           configStorage: 2Gi
           resources:
             requests:
-              cpu: 300m
-              memory: 2Gi
+              cpu: 2
+              memory: 4Gi
             limits:
-              cpu: 300m
-              memory: 2Gi
+              cpu: 4
+              memory: 4Gi
         statefulSet:
           podAnnotations:
             linkerd.io/inject: enabled
