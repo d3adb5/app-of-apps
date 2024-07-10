@@ -13,6 +13,8 @@ spec:
 
     helm:
       valuesObject:
+        podAnnotations:
+          linkerd.io/inject: enabled
         jellyfin:
           mediaVolumes:
             - name: movies
