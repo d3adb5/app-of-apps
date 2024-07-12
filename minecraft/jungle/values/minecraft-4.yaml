@@ -31,6 +31,7 @@ minecraftServer:
     enabled: true
     existingSecret: minecraft-jungle-rcon-password
     secretKey: rcon-password
+  memory: 3584M
 mcbackup:
   enabled: true
   pruneBackupsDays: 14
