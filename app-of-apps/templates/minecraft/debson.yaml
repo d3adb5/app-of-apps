@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft-debson
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: minecraft
+  sources:
+    - repoURL: {{ .Values.repository.url }}
+      targetRevision: HEAD
+      path: minecraft/debson
+      ref: appOfApps
+    - repoURL: https://itzg.github.io/minecraft-server-charts
+      targetRevision: 4.19.0
+      chart: minecraft
+      helm:
+        valueFiles:
+          - $appOfApps/minecraft/debson/values/minecraft-4.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.minecraft.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
