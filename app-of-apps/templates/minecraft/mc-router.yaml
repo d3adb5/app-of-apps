@@ -30,6 +30,9 @@ spec:
             - externalHostname: mc-jngs.d3adb5.net
               host: mc-jngs-minecraft
               port: 25565
+            - externalHostname: jungle.minecraft.d3adb5.net
+              host: minecraft-jungle-minecraft
+              port: 25565
         resources:
           requests:
             cpu: 100m
