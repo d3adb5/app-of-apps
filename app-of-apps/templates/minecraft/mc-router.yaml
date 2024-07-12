@@ -24,11 +24,8 @@ spec:
               metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
         minecraftRouter:
           mappings:
-            - externalHostname: mc-legg.d3adb5.net
-              host: mc-legg-minecraft
-              port: 25565
-            - externalHostname: mc-jngs.d3adb5.net
-              host: mc-jngs-minecraft
+            - externalHostname: minecraft.d3adb5.net
+              host: minecraft-debson-minecraft
               port: 25565
             - externalHostname: jungle.minecraft.d3adb5.net
               host: minecraft-jungle-minecraft
