@@ -39,7 +39,7 @@ mcbackup:
     storageClass: longhorn-nvme
     backupDir:
       enabled: true
-      size: 20Gi
+      Size: 20Gi
 affinity:
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
