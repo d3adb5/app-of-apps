@@ -32,6 +32,9 @@ minecraftServer:
     existingSecret: minecraft-debson-rcon-password
     secretKey: rcon-password
   memory: 3584M
+  pluginUrls:
+    - "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.0.1/PAPER/ViaVersion-5.0.1.jar"
+    - "https://hangarcdn.papermc.io/plugins/imDMK/DoubleJump/versions/2.1.4/PAPER/DoubleJump%20v2.1.4.jar"
 mcbackup:
   enabled: true
   pruneBackupsDays: 14
