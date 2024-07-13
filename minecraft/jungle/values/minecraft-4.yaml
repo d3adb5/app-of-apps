@@ -32,6 +32,8 @@ minecraftServer:
     existingSecret: minecraft-jungle-rcon-password
     secretKey: rcon-password
   memory: 3584M
+  pluginUrls:
+    - "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.0.1/PAPER/ViaVersion-5.0.1.jar"
 mcbackup:
   enabled: true
   pruneBackupsDays: 14
