@@ -1,0 +1,56 @@
+podAnnotations:
+  linkerd.io/inject: enabled
+  config.linkerd.io/opaque-ports: "25565"
+workloadAsStatefulSet: true
+strategyType: RollingUpdate
+persistence:
+  storageClass: longhorn-nvme
+  dataDir:
+    enabled: true
+    Size: 10Gi
+resources:
+  requests:
+    cpu: 500m
+    memory: 4Gi
+  limits:
+    cpu: 3
+    memory: 4Gi
+minecraftServer:
+  eula: true
+  type: PAPER
+  version: "1.21"
+  paperDownloadUrl: "https://api.papermc.io/v2/projects/paper/versions/1.21/builds/62/downloads/paper-1.21-62.jar"
+  whitelist: d3adb5,pijung,kongnamule
+  ops: d3adb5,pijung,kongnamule
+  maxPlayers: 10
+  allowNether: true
+  announcePlayerAchievements: true
+  spawnProtection: 0
+  viewDistance: 16
+  motd: "백지장도 맞들면 낫다"
+  icon: "http://0x0.st/Hhpt.png"
+  rcon:
+    enabled: true
+    existingSecret: minecraft-forest-rcon-password
+    secretKey: rcon-password
+  memory: 3584M
+mcbackup:
+  enabled: true
+  pruneBackupsDays: 14
+  persistence:
+    storageClass: longhorn-nvme
+    backupDir:
+      enabled: true
+      Size: 20Gi
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - minecraft
+          topologyKey: kubernetes.io/hostname
