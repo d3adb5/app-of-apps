@@ -10,9 +10,11 @@ spec:
     - {{ .Values.appOfApps.repoURL }}
     - "https://github.com/operator-framework/operator-lifecycle-manager"
   destinations:
+    - namespace: operator-lifecycle-manager
+      server: https://kubernetes.default.svc
     - namespace: operators
       server: https://kubernetes.default.svc
-    - namespace: operator-lifecycle-manager
+    - namespace: keycloak-operator
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ''
