@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: unpackerr-radarr
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: media
+  source:
+    repoURL: {{ .Values.helmRepos.d3adb5 }}
+    targetRevision: 0.1.0
+    chart: unpackerr
+
+    helm:
+      valuesObject:
+        podAnnotations:
+          linkerd.io/inject: enabled
+        image:
+          repository: golift/unpackerr
+          tag: "0.14"
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 2
+            memory: 512Mi
+        volumes:
+          - name: downloads
+            persistentVolumeClaim:
+              claimName: {{ .Values.media.libraries.movies.claimName }}
+        volumeMounts:
+          - name: downloads
+            mountPath: /downloads
+        config:
+          env:
+            existingSecret: unpackerr-radarr
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.media.namespace }}
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
