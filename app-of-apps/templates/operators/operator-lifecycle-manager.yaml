@@ -5,7 +5,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: operators
   source:
     repoURL: https://github.com/operator-framework/operator-lifecycle-manager
     targetRevision: v0.28.0

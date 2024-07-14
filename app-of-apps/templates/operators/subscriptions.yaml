@@ -1,20 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keycloak
+  name: operators
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: keycloak
+  project: operators
   source:
     repoURL: {{ .Values.appOfApps.repoURL }}
     targetRevision: HEAD
-    path: keycloak
-
+    path: operators
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ .Values.keycloak.namespace }}
-
+    namespace: operators
   syncPolicy:
     automated:
       prune: true
