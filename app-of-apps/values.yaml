@@ -1,5 +1,5 @@
-repository:
-  url: https://github.com/d3adb5/app-of-apps
+appOfApps:
+  repoURL: https://github.com/d3adb5/app-of-apps
 
 charts:
   repository: https://charts.d3adb5.net/
