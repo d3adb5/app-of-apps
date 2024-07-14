@@ -8,7 +8,7 @@ spec:
   project: media
   source:
     repoURL: {{ .Values.helmRepos.d3adb5 }}
-    targetRevision: 0.1.0
+    targetRevision: 0.1.1
     chart: unpackerr
 
     helm:
