@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operators
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: operators
+  source:
+    repoURL: {{ .Values.repository.url }}
+    targetRevision: HEAD
+    path: operators
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: operators
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
