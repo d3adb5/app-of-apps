@@ -23,3 +23,5 @@ spec:
       kind: ClusterRole
     - group: rbac.authorization.k8s.io
       kind: ClusterRoleBinding
+    - group: operators.coreos.com
+      kind: OLMConfig
