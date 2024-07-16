@@ -18,6 +18,10 @@ spec:
           podAnnotations:
             linkerd.io/inject: enabled
 
+        redisSecretInit:
+          podAnnotations:
+            linkerd.io/inject: disabled
+
         configs:
           params:
             server.insecure: true
