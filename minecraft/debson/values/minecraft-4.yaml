@@ -11,10 +11,10 @@ persistence:
 resources:
   requests:
     cpu: 500m
-    memory: 4Gi
+    memory: 8Gi
   limits:
-    cpu: 3
-    memory: 4Gi
+    cpu: 4
+    memory: 8Gi
 minecraftServer:
   eula: true
   type: PAPER
@@ -24,14 +24,14 @@ minecraftServer:
   allowNether: true
   announcePlayerAchievements: true
   spawnProtection: 0
-  viewDistance: 12
+  viewDistance: 32
   motd: "But do you l'eggu?"
   icon: "http://0x0.st/Hhpf.png"
   rcon:
     enabled: true
     existingSecret: minecraft-debson-rcon-password
     secretKey: rcon-password
-  memory: 3584M
+  memory: 7680M
   pluginUrls:
     - "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.0.1/PAPER/ViaVersion-5.0.1.jar"
 mcbackup:
