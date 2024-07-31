@@ -18,8 +18,6 @@ resources:
 minecraftServer:
   eula: true
   type: PAPER
-  version: "1.21"
-  paperDownloadUrl: "https://api.papermc.io/v2/projects/paper/versions/1.21/builds/62/downloads/paper-1.21-62.jar"
   whitelist: d3adb5,pijung,kongnamule
   ops: d3adb5,pijung,kongnamule
   maxPlayers: 10
