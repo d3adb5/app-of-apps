@@ -34,12 +34,12 @@ minecraftServer:
   memory: 3584M
 mcbackup:
   enabled: true
-  pruneBackupsDays: 14
+  pruneBackupsDays: 7
   persistence:
     storageClass: longhorn-nvme
     backupDir:
       enabled: true
-      Size: 20Gi
+      Size: 25Gi
 affinity:
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
