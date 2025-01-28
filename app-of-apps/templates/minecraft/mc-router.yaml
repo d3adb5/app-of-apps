@@ -8,7 +8,7 @@ spec:
   project: minecraft
   source:
     repoURL: https://itzg.github.io/minecraft-server-charts
-    targetRevision: 1.2.3
+    targetRevision: 1.2.4
     chart: mc-router
 
     helm:
