@@ -39,6 +39,6 @@ jobs:
             echo "No differences found in the app of apps." > diff.txt
           fi
       - name: Comment results on the pull request
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
           filePath: diff.txt
