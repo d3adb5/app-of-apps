@@ -18,6 +18,7 @@ resources:
 minecraftServer:
   eula: true
   type: FORGE
+  version: "1.20.1"
   whitelist: ab9c17,Zuuwi
   ops: ab9c17,Zuuwi
   maxPlayers: 10
