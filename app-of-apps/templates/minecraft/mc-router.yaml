@@ -24,6 +24,9 @@ spec:
               metallb.universe.tf/allow-shared-ip: {{ .Values.metallb.ipSharingKey }}
         minecraftRouter:
           mappings:
+            - externalHostname: zuwi.picori.ca
+              host: minecraft-zuwi-minecraft
+              port: 25565
             - externalHostname: minecraft.d3adb5.net
               host: minecraft-debson-minecraft
               port: 25565
