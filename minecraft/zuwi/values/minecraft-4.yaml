@@ -13,7 +13,7 @@ resources:
     cpu: 500m
     memory: 8Gi
   limits:
-    cpu: 4
+    cpu: 3
     memory: 8Gi
 minecraftServer:
   eula: true
