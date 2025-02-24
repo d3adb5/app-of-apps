@@ -42,6 +42,9 @@ mcbackup:
     backupDir:
       enabled: true
       Size: 20Gi
+startupProbe:
+  enabled: true
+  failureThreshold: 180
 affinity:
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
