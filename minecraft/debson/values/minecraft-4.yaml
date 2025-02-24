@@ -1,3 +1,4 @@
+replicaCount: 0
 podAnnotations:
   linkerd.io/inject: enabled
   config.linkerd.io/opaque-ports: "25565"
