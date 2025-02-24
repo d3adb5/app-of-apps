@@ -32,7 +32,7 @@ minecraftServer:
     enabled: true
     existingSecret: minecraft-zuwi-rcon-password
     secretKey: rcon-password
-  memory: 3584M
+  memory: 7680M
   downloadModpackUrl: "http://0x0.st/8ABZ.7.zip"
 mcbackup:
   enabled: true
