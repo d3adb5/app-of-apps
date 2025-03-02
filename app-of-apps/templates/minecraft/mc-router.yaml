@@ -25,7 +25,7 @@ spec:
         minecraftRouter:
           mappings:
             - externalHostname: wiggleton.picori.ca
-              host: minecraft-zuwi-minecraft
+              host: minecraft-wiggleton-minecraft
               port: 25565
             - externalHostname: zuwi.picori.ca
               host: minecraft-zuwi-minecraft
