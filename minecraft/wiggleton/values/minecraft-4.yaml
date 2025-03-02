@@ -18,8 +18,8 @@ resources:
 minecraftServer:
   eula: true
   type: PAPER
-  whitelist: ab9c17,Shedy332004
-  ops: ab9c17,Shedy332004
+  whitelist: ab9c17,Shedy33
+  ops: ab9c17,Shedy33
   maxPlayers: 10
   allowNether: true
   announcePlayerAchievements: true
