@@ -41,4 +41,4 @@ jobs:
       - name: Comment results on the pull request
         uses: thollander/actions-comment-pull-request@v3
         with:
-          filePath: diff.txt
+          file-path: diff.txt
