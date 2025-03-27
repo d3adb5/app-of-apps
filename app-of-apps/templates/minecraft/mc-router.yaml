@@ -25,22 +25,22 @@ spec:
         minecraftRouter:
           mappings:
             - externalHostname: wiggleton.picori.ca
-              host: minecraft-wiggleton-minecraft
+              host: minecraft-wiggleton
               port: 25565
             - externalHostname: zuwi.picori.ca
-              host: minecraft-zuwi-minecraft
+              host: minecraft-zuwi
               port: 25565
             - externalHostname: minecraft.d3adb5.net
-              host: minecraft-debson-minecraft
+              host: minecraft-debson
               port: 25565
             - externalHostname: jungle.minecraft.d3adb5.net
-              host: minecraft-jungle-minecraft
+              host: minecraft-jungle
               port: 25565
             - externalHostname: debson.minecraft.d3adb5.net
-              host: minecraft-debson-minecraft
+              host: minecraft-debson
               port: 25565
             - externalHostname: forest.minecraft.d3adb5.net
-              host: minecraft-forest-minecraft
+              host: minecraft-forest
               port: 25565
         resources:
           requests:
