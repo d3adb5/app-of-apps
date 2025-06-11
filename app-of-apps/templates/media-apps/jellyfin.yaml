@@ -8,7 +8,7 @@ spec:
   project: media
   source:
     repoURL: https://djjudas21.github.io/charts
-    targetRevision: 3.2.6
+    targetRevision: 3.2.7
     chart: jellyfin
 
     helm:
