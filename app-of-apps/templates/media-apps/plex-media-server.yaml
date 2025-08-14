@@ -51,7 +51,7 @@ spec:
           nodePort: 32400
         pms:
           storageClassName: longhorn-nvme
-          configStorage: 4Gi
+          configStorage: 10Gi
           resources:
             requests:
               cpu: 2
