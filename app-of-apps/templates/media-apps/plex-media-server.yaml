@@ -59,9 +59,6 @@ spec:
             limits:
               cpu: 4
               memory: 4Gi
-        statefulSet:
-          podAnnotations:
-            linkerd.io/inject: enabled
 
   destination:
     server: https://kubernetes.default.svc
